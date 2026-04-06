@@ -796,14 +796,10 @@ const heroSection = document.querySelector('.hero');
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      console.log('Hero section intersecting, triggering animation');
-      
       // 重置所有元素的动画状态
       const allElements = heroSection.querySelectorAll('.hero-title, .hero-sub, .feat-title, .feat-desc');
-      console.log('Found elements:', allElements.length);
       
-      allElements.forEach((el, index) => {
-        console.log('Resetting element', index, el.classList);
+      allElements.forEach((el) => {
         el.style.opacity = '0';
         el.style.filter = 'blur(10px)';
         el.classList.remove('animate-slide-up');
@@ -823,14 +819,11 @@ const observer = new IntersectionObserver((entries) => {
       
       // 强制重排
       void heroSection.offsetWidth;
-      console.log('Forced reflow');
       
       // 按顺序添加动画类
       allElements.forEach((el, index) => {
-        console.log('Adding animation to element', index, 'with delay', index * 100);
         setTimeout(() => {
           el.classList.add('animate-slide-up');
-          console.log('Animation added to element', index);
         }, index * 100);
       });
     }
@@ -839,7 +832,6 @@ const observer = new IntersectionObserver((entries) => {
 
 if (heroSection) {
   observer.observe(heroSection);
-  console.log('Observer observing hero section');
 }
 
 // ── FAQ 展开 ──
