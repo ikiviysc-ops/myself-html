@@ -21,7 +21,7 @@
 
 ## 预览
 
-项目已部署到 GitHub Pages，访问链接：https://your-username.github.io/myself-html/
+项目已部署到 GitHub Pages，访问链接：https://ikiviysc-ops.github.io/myself-html/
 
 ## 许可证
 
