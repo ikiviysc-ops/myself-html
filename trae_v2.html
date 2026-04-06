@@ -135,7 +135,6 @@ nav{
   mix-blend-mode:normal;
   position:relative;z-index:2;
   margin-bottom:14px;
-  animation:slideIn 1.89s ease-out forwards;
   opacity:0;
   transform:translate(-50px, 50px) scale(0.8);
   filter:blur(10px);
@@ -156,11 +155,10 @@ nav{
   }
 }
 
-/* 从下面滑动回来的动画 */
-@keyframes slideUpFromBottom{
+/* 从初始位置滑动到最终位置的动画 */
+@keyframes slideInFromPosition{
   from{
     opacity:0;
-    transform:translate(0, 50px) scale(0.8);
     filter:blur(10px);
   }
   to{
@@ -172,7 +170,7 @@ nav{
 
 /* 触发动画的类 */
 .animate-slide-up{
-  animation:slideUpFromBottom 1.89s ease-out forwards;
+  animation:slideInFromPosition 1.89s ease-out forwards;
 }
 
 .hero-sub{
@@ -180,11 +178,9 @@ nav{
   color:rgba(255,255,255,0.38);
   line-height:1.65;max-width:280px;
   position:relative;z-index:2;
-  animation:slideIn 1.89s ease-out forwards;
   opacity:0;
   transform:translate(-50px, 50px) scale(0.8);
   filter:blur(10px);
-  animation-delay:0.2s;
 }
 .hero-sub strong{color:rgba(255,255,255,0.65);font-weight:500}
 
@@ -213,24 +209,20 @@ nav{
   -webkit-text-fill-color:transparent;
   background-clip:text;
   margin-bottom:8px;
-  animation:slideIn 1.89s ease-out forwards;
   opacity:0;
   filter:blur(10px);
 }
 
 /* 右上角 - 从右边来 */
 .feat:nth-child(1) .feat-title{
-  animation-delay:0.3s;
   transform:translate(50px, 50px) scale(0.8);
 }
 /* 中间左边 - 从左边来 */
 .feat:nth-child(2) .feat-title{
-  animation-delay:0.6s;
   transform:translate(-50px, 50px) scale(0.8);
 }
 /* 右下角 - 从右边来 */
 .feat:nth-child(3) .feat-title{
-  animation-delay:0.9s;
   transform:translate(50px, 50px) scale(0.8);
 }
 
@@ -239,7 +231,6 @@ nav{
   color:rgba(255,255,255,0.32);
   line-height:1.6;
   font-weight:400;
-  animation:slideIn 1.89s ease-out forwards;
   opacity:0;
   filter:blur(10px);
 }
@@ -248,17 +239,14 @@ nav{
 
 /* 右上角 - 从右边来 */
 .feat:nth-child(1) .feat-desc{
-  animation-delay:0.5s;
   transform:translate(50px, 50px) scale(0.8);
 }
 /* 中间左边 - 从左边来 */
 .feat:nth-child(2) .feat-desc{
-  animation-delay:0.8s;
   transform:translate(-50px, 50px) scale(0.8);
 }
 /* 右下角 - 从右边来 */
 .feat:nth-child(3) .feat-desc{
-  animation-delay:1.1s;
   transform:translate(50px, 50px) scale(0.8);
 }
 
@@ -791,49 +779,102 @@ footer{
 </div><!-- end scroll-content -->
 
 <script>
-// ── Hero区域动画：从下面滑动回来 ──
+// ── Hero区域动画：滚动出去后隐藏，滑动回来后显示 ──
 const heroSection = document.querySelector('.hero');
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
+    const heroTitle = heroSection.querySelector('.hero-title');
+    const heroSub = heroSection.querySelector('.hero-sub');
+    const featTitles = heroSection.querySelectorAll('.feat-title');
+    const featDescs = heroSection.querySelectorAll('.feat-desc');
+    const allElements = [heroTitle, heroSub, ...featTitles, ...featDescs].filter(el => el);
+    
     if (entry.isIntersecting) {
-      // 重置所有元素的动画状态
-      const allElements = heroSection.querySelectorAll('.hero-title, .hero-sub, .feat-title, .feat-desc');
+      // 进入视口：显示并触发动画
+      allElements.forEach(el => {
+        el.style.visibility = 'visible';
+      });
       
-      allElements.forEach((el) => {
-        el.style.opacity = '0';
-        el.style.filter = 'blur(10px)';
-        el.classList.remove('animate-slide-up');
-        
-        // 设置初始位置
-        if (el.classList.contains('hero-title') || el.classList.contains('hero-sub')) {
-          // 最上面的元素从左边来
-          el.style.transform = 'translate(-50px, 50px) scale(0.8)';
-        } else if (el.closest('.feat-top-right') || el.closest('.feat-bottom-right')) {
-          // 右边的元素从右边来
-          el.style.transform = 'translate(50px, 50px) scale(0.8)';
-        } else if (el.closest('.feat-mid-left')) {
-          // 左边的元素从左边来
-          el.style.transform = 'translate(-50px, 50px) scale(0.8)';
+      // 重置所有元素的动画状态
+      if (heroTitle) {
+        heroTitle.style.opacity = '0';
+        heroTitle.style.filter = 'blur(10px)';
+        heroTitle.style.transform = 'translate(-50px, 50px) scale(0.8)';
+        heroTitle.classList.remove('animate-slide-up');
+      }
+      
+      if (heroSub) {
+        heroSub.style.opacity = '0';
+        heroSub.style.filter = 'blur(10px)';
+        heroSub.style.transform = 'translate(-50px, 50px) scale(0.8)';
+        heroSub.classList.remove('animate-slide-up');
+      }
+      
+      featTitles.forEach((title, index) => {
+        title.style.opacity = '0';
+        title.style.filter = 'blur(10px)';
+        if (index === 0 || index === 2) {
+          title.style.transform = 'translate(50px, 50px) scale(0.8)';
+        } else {
+          title.style.transform = 'translate(-50px, 50px) scale(0.8)';
         }
+        title.classList.remove('animate-slide-up');
+      });
+      
+      featDescs.forEach((desc, index) => {
+        desc.style.opacity = '0';
+        desc.style.filter = 'blur(10px)';
+        if (index === 0 || index === 2) {
+          desc.style.transform = 'translate(50px, 50px) scale(0.8)';
+        } else {
+          desc.style.transform = 'translate(-50px, 50px) scale(0.8)';
+        }
+        desc.classList.remove('animate-slide-up');
       });
       
       // 强制重排
       void heroSection.offsetWidth;
       
       // 按顺序添加动画类
-      const elementsArray = Array.from(allElements);
-      elementsArray.forEach((el, index) => {
-        // 确保每个元素都能触发动画
+      let delay = 0;
+      
+      if (heroTitle) {
         setTimeout(() => {
-          // 强制移除并重新添加动画类
-          el.classList.remove('animate-slide-up');
-          void el.offsetWidth;
-          el.classList.add('animate-slide-up');
-        }, index * 100);
+          heroTitle.classList.add('animate-slide-up');
+        }, delay);
+        delay += 100;
+      }
+      
+      if (heroSub) {
+        setTimeout(() => {
+          heroSub.classList.add('animate-slide-up');
+        }, delay);
+        delay += 100;
+      }
+      
+      featTitles.forEach((title) => {
+        setTimeout(() => {
+          title.classList.add('animate-slide-up');
+        }, delay);
+        delay += 100;
+      });
+      
+      featDescs.forEach((desc) => {
+        setTimeout(() => {
+          desc.classList.add('animate-slide-up');
+        }, delay);
+        delay += 100;
+      });
+    } else {
+      // 离开视口：隐藏所有元素
+      allElements.forEach(el => {
+        el.style.visibility = 'hidden';
+        el.style.opacity = '0';
+        el.classList.remove('animate-slide-up');
       });
     }
   });
-}, { threshold: 0.3, rootMargin: '-100px 0px -100px 0px' });
+}, { threshold: 0.1, rootMargin: '-50px 0px -50px 0px' });
 
 if (heroSection) {
   observer.observe(heroSection);
