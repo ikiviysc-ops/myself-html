@@ -796,94 +796,50 @@ const heroSection = document.querySelector('.hero');
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      // 触发从下面滑动回来的动画
+      console.log('Hero section intersecting, triggering animation');
       
-      // 先处理hero-title和hero-sub
-      const heroMain = heroSection.querySelectorAll('.hero-title, .hero-sub');
-      heroMain.forEach((el, index) => {
+      // 重置所有元素的动画状态
+      const allElements = heroSection.querySelectorAll('.hero-title, .hero-sub, .feat-title, .feat-desc');
+      console.log('Found elements:', allElements.length);
+      
+      allElements.forEach((el, index) => {
+        console.log('Resetting element', index, el.classList);
         el.style.opacity = '0';
-        el.style.transform = 'translate(0, 50px) scale(0.8)';
         el.style.filter = 'blur(10px)';
         el.classList.remove('animate-slide-up');
-      });
-      
-      // 处理feat元素，保留左右方向
-      const feats = heroSection.querySelectorAll('.feat');
-      feats.forEach((feat, featIndex) => {
-        const title = feat.querySelector('.feat-title');
-        const desc = feat.querySelector('.feat-desc');
         
-        if (title) {
-          title.style.opacity = '0';
-          title.style.filter = 'blur(10px)';
-          title.classList.remove('animate-slide-up');
-          // 保留原来的左右方向
-          if (featIndex === 0 || featIndex === 2) {
-            // 右边的元素
-            title.style.transform = 'translate(50px, 50px) scale(0.8)';
-          } else {
-            // 左边的元素
-            title.style.transform = 'translate(-50px, 50px) scale(0.8)';
-          }
-        }
-        
-        if (desc) {
-          desc.style.opacity = '0';
-          desc.style.filter = 'blur(10px)';
-          desc.classList.remove('animate-slide-up');
-          // 保留原来的左右方向
-          if (featIndex === 0 || featIndex === 2) {
-            // 右边的元素
-            desc.style.transform = 'translate(50px, 50px) scale(0.8)';
-          } else {
-            // 左边的元素
-            desc.style.transform = 'translate(-50px, 50px) scale(0.8)';
-          }
+        // 设置初始位置
+        if (el.classList.contains('hero-title') || el.classList.contains('hero-sub')) {
+          // 最上面的元素从下面来
+          el.style.transform = 'translate(0, 50px) scale(0.8)';
+        } else if (el.closest('.feat-top-right') || el.closest('.feat-bottom-right')) {
+          // 右边的元素从右边来
+          el.style.transform = 'translate(50px, 50px) scale(0.8)';
+        } else if (el.closest('.feat-mid-left')) {
+          // 左边的元素从左边来
+          el.style.transform = 'translate(-50px, 50px) scale(0.8)';
         }
       });
       
       // 强制重排
       void heroSection.offsetWidth;
+      console.log('Forced reflow');
       
       // 按顺序添加动画类
-      let delay = 0;
-      
-      // 先添加hero-main元素
-      heroMain.forEach(el => {
+      allElements.forEach((el, index) => {
+        console.log('Adding animation to element', index, 'with delay', index * 100);
         setTimeout(() => {
           el.classList.add('animate-slide-up');
-        }, delay);
-        delay += 150;
+          console.log('Animation added to element', index);
+        }, index * 100);
       });
-      
-      // 再添加feat元素
-      feats.forEach((feat) => {
-        const title = feat.querySelector('.feat-title');
-        const desc = feat.querySelector('.feat-desc');
-        
-        if (title) {
-          setTimeout(() => {
-            title.classList.add('animate-slide-up');
-          }, delay);
-          delay += 150;
-        }
-        
-        if (desc) {
-          setTimeout(() => {
-            desc.classList.add('animate-slide-up');
-          }, delay);
-          delay += 150;
-        }
-      });
-      
-      // 移除注释以允许每次滚动到hero区域时都触发动画
-      // observer.unobserve(heroSection);
     }
   });
-}, { threshold: 0.1, rootMargin: '-50px 0px -50px 0px' });
+}, { threshold: 0.3, rootMargin: '-100px 0px -100px 0px' });
 
 if (heroSection) {
   observer.observe(heroSection);
+  console.log('Observer observing hero section');
 }
 
 // ── FAQ 展开 ──
