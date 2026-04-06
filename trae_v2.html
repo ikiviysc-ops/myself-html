@@ -141,6 +141,13 @@ nav{
   filter:blur(10px);
 }
 
+/* 确保渐变文字在所有浏览器中正确显示 */
+.hero-title,
+.feat-title{
+  -webkit-text-fill-color: transparent !important;
+  color: #f0e6d0 !important;
+}
+
 @keyframes slideIn{
   to{
     opacity:1;
