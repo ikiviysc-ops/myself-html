@@ -798,22 +798,23 @@ const observer = new IntersectionObserver((entries) => {
     if (entry.isIntersecting) {
       // 触发从下面滑动回来的动画
       const heroElements = heroSection.querySelectorAll('.hero-title, .hero-sub, .feat-title, .feat-desc');
-      heroElements.forEach((el, index) => {
-        // 重置动画状态
+      
+      // 重置所有元素的动画状态
+      heroElements.forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translate(0, 50px) scale(0.8)';
         el.style.filter = 'blur(10px)';
-        
-        // 移除可能存在的动画类
         el.classList.remove('animate-slide-up');
-        
-        // 强制重排
-        void el.offsetWidth;
-        
-        // 添加动画类
+      });
+      
+      // 强制重排
+      void heroSection.offsetWidth;
+      
+      // 按顺序添加动画类
+      heroElements.forEach((el, index) => {
         setTimeout(() => {
           el.classList.add('animate-slide-up');
-        }, index * 100);
+        }, index * 150); // 增加延迟间隔，让动画更明显
       });
       
       // 移除注释以允许每次滚动到hero区域时都触发动画
