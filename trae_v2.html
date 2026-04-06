@@ -816,11 +816,11 @@ const observer = new IntersectionObserver((entries) => {
         }, index * 100);
       });
       
-      // 只触发一次
-      observer.unobserve(heroSection);
+      // 移除注释以允许每次滚动到hero区域时都触发动画
+      // observer.unobserve(heroSection);
     }
   });
-}, { threshold: 0.1 });
+}, { threshold: 0.1, rootMargin: '-50px 0px -50px 0px' });
 
 if (heroSection) {
   observer.observe(heroSection);
