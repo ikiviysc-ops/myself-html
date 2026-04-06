@@ -41,23 +41,40 @@ nav{
   text-decoration:none;letter-spacing:-0.03em;
   opacity:0.9;
 }
-.nav-right{display:flex;align-items:center;gap:16px}
+.nav-right{display:flex;align-items:center;gap:20px}
+.nav-links{display:flex;align-items:center;gap:16px}
+.nav-music{display:flex;align-items:center}
 .nav-link{
-  color:rgba(255,255,255,0.4);font-size:14px;
-  text-decoration:none;transition:color 0.2s;
+  color:rgba(255,255,255,0.4);
+  font-size:14px;
+  text-decoration:none;
+  transition:color 0.2s;
 }
 .nav-link:hover{color:#fff}
 .nav-btn{
-  background:rgba(255,255,255,0.1);
-  color:rgba(255,255,255,0.8);
-  border:1px solid rgba(255,255,255,0.12);
-  padding:8px 18px;border-radius:100px;
-  font-size:13px;font-weight:500;
+  background:transparent;
+  color:rgba(255,255,255,0.4);
+  border:none;
+  font-size:14px;
+  font-weight:400;
   text-decoration:none;
-  backdrop-filter:blur(10px);
-  transition:background 0.2s,color 0.2s;
+  transition:color 0.2s;
 }
-.nav-btn:hover{background:rgba(255,255,255,0.18);color:#fff}
+.nav-btn:hover{color:#fff}
+
+/* 音乐按钮样式 */
+.music-btn{
+  background:rgba(22,22,22,0.3) !important;
+  color:rgba(255,255,255,0.7) !important;
+  border:1px solid rgba(255,255,255,0.15) !important;
+  transition:background 0.3s, border-color 0.3s, color 0.3s !important;
+}
+
+.music-btn:hover{
+  background:rgba(22,22,22,0.4) !important;
+  color:#fff !important;
+  border-color:rgba(255,255,255,0.2) !important;
+}
 
 /* ═══════════════════════════════
    扁平 ICON — 固定在屏幕正中间，层级在最底
@@ -150,9 +167,9 @@ nav{
   mix-blend-mode:normal;
   position:relative;z-index:2;
   margin-bottom:14px;
-  opacity:0;
-  transform:translate(-50px, 50px) scale(0.8);
-  filter:blur(10px);
+  opacity:1;
+  transform:translate(0, 0) scale(1);
+  filter:blur(0);
 }
 
 /* 确保渐变文字在所有浏览器中正确显示 */
@@ -183,6 +200,43 @@ nav{
   }
 }
 
+/* 唱片旋转动画 */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.rotate {
+  animation: spin 3s linear infinite;
+}
+
+/* 唱片大小律动动画 - 更有节奏感，像鼓点 */
+@keyframes recordPulse {
+  0%, 24%, 26%, 48%, 52%, 74%, 76%, 98% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.15); /* 轻鼓点 */
+  }
+  50% {
+    transform: scale(1.25); /* 重鼓点 */
+  }
+  75% {
+    transform: scale(1.15); /* 轻鼓点 */
+  }
+  99% {
+    transform: scale(1.2); /* 结束重音 */
+  }
+}
+
+.pulse {
+  animation: recordPulse 1.2s ease-in-out infinite;
+}
+
 /* 触发动画的类 */
 .animate-slide-up{
   animation:slideInFromPosition 1.32s ease-out forwards;
@@ -193,9 +247,9 @@ nav{
   color:rgba(255,255,255,0.38);
   line-height:1.65;max-width:280px;
   position:relative;z-index:2;
-  opacity:0;
-  transform:translate(-50px, 50px) scale(0.8);
-  filter:blur(10px);
+  opacity:1;
+  transform:translate(0, 0) scale(1);
+  filter:blur(0);
 }
 .hero-sub strong{color:rgba(255,255,255,0.65);font-weight:500}
 
@@ -224,21 +278,9 @@ nav{
   -webkit-text-fill-color:transparent;
   background-clip:text;
   margin-bottom:8px;
-  opacity:0;
-  filter:blur(10px);
-}
-
-/* 右上角 - 从右边来 */
-.feat:nth-child(1) .feat-title{
-  transform:translate(50px, 50px) scale(0.8);
-}
-/* 中间左边 - 从左边来 */
-.feat:nth-child(2) .feat-title{
-  transform:translate(-50px, 50px) scale(0.8);
-}
-/* 右下角 - 从右边来 */
-.feat:nth-child(3) .feat-title{
-  transform:translate(50px, 50px) scale(0.8);
+  opacity:1;
+  filter:blur(0);
+  transform:translate(0, 0) scale(1);
 }
 
 .feat-desc{
@@ -246,24 +288,12 @@ nav{
   color:rgba(255,255,255,0.32);
   line-height:1.6;
   font-weight:400;
-  opacity:0;
-  filter:blur(10px);
+  opacity:1;
+  filter:blur(0);
+  transform:translate(0, 0) scale(1);
 }
 
 .feat-desc strong{color:rgba(255,255,255,0.55);font-weight:500}
-
-/* 右上角 - 从右边来 */
-.feat:nth-child(1) .feat-desc{
-  transform:translate(50px, 50px) scale(0.8);
-}
-/* 中间左边 - 从左边来 */
-.feat:nth-child(2) .feat-desc{
-  transform:translate(-50px, 50px) scale(0.8);
-}
-/* 右下角 - 从右边来 */
-.feat:nth-child(3) .feat-desc{
-  transform:translate(50px, 50px) scale(0.8);
-}
 
 /* 位置：模仿原版左右交错 */
 .feat-top-right{top:8px;right:0;text-align:left}
@@ -297,15 +327,14 @@ nav{
   border:1px solid rgba(255,255,255,0.15);
   border-radius:10px;padding:16px 18px;
   display:flex;align-items:flex-start;gap:14px;
-  transition:background 0.3s,border-color 0.3s;
   position:relative;overflow:hidden;
+  cursor:default;
 }
 .chip::before{
   content:'';position:absolute;inset:0;
   background:linear-gradient(135deg,rgba(255,255,255,0.025) 0%,transparent 55%);
   pointer-events:none;
 }
-.chip:hover{background:rgba(255,255,255,0.25);border-color:rgba(255,255,255,0.2);}
 .chip-ic{
   width:34px;height:34px;
   background:rgba(255,255,255,0.15);
@@ -547,11 +576,19 @@ footer{
   .nav-link{color:rgba(0,0,0,0.4)}
   .nav-link:hover{color:#000}
   .nav-btn{
-    background:rgba(0,0,0,0.1);
-    color:rgba(0,0,0,0.8);
-    border:1px solid rgba(0,0,0,0.12);
+    background:transparent;
+    color:rgba(0,0,0,0.4);
+    border:none;
+    font-size:14px;
+    font-weight:400;
   }
-  .nav-btn:hover{background:rgba(0,0,0,0.18);color:#000}
+  .nav-btn:hover{color:#000}
+  
+  .music-btn{
+    background:rgba(0,0,0,0.1) !important;
+    color:rgba(0,0,0,0.8) !important;
+  }
+  .music-btn:hover{background:rgba(0,0,0,0.18) !important;color:#000 !important}
   
   .icon-3d{
     background:linear-gradient(135deg,#f5f5f5 0%,#e0e0e0 50%,#d0d0d0 100%);
@@ -630,11 +667,11 @@ footer{
     background:rgba(245,245,245,0.8);
     backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);
     border:1px solid rgba(0,0,0,0.15);
+    cursor:default;
   }
   .chip::before{
     background:linear-gradient(135deg,rgba(0,0,0,0.025) 0%,transparent 55%);
   }
-  .chip:hover{background:rgba(230,230,230,0.8);border-color:rgba(0,0,0,0.2);}
   
   .chip-ic{
     background:rgba(0,0,0,0.15);
@@ -768,13 +805,38 @@ footer{
 </head>
 <body>
 
+<!-- 背景音乐 -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="video/votega.mp3" type="audio/mpeg">
+  <source src="video/votega.mp3" type="audio/mp3">
+</audio>
+
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">IKIVIY™</a>
   <div class="nav-right">
-    <a href="#about-me" class="nav-link" onclick="scrollToSection('about-me'); return false;">关于我</a>
-    <a href="#projects" class="nav-link">项目</a>
-    <a href="#contact" class="nav-btn">联系我</a>
+    <div class="nav-links">
+      <a href="#about-me" class="nav-link" onclick="scrollToSection('about-me'); return false;">关于我</a>
+      <a href="#projects" class="nav-link">项目</a>
+      <a href="#contact" class="nav-btn">联系我</a>
+    </div>
+    <div class="nav-music">
+      <button id="musicBtn" class="music-btn" style="backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); padding: 8px 16px; border-radius: 100px; font-size: 13px; font-weight: 500; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; position: relative; overflow: hidden;" onclick="toggleMusic()">
+        <svg id="musicIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M12 2v2"></path>
+          <path d="M12 20v2"></path>
+          <path d="m4.93 4.93 1.41 1.41"></path>
+          <path d="m17.66 17.66 1.41 1.41"></path>
+          <path d="M2 12h2"></path>
+          <path d="M20 12h2"></path>
+          <path d="m6.34 17.66-1.41 1.41"></path>
+          <path d="m19.07 4.93-1.41 1.41"></path>
+        </svg>
+        <span id="musicText">音乐</span>
+      </button>
+    </div>
   </div>
 </nav>
 
@@ -1166,6 +1228,73 @@ const observer = new IntersectionObserver((entries) => {
 
 if (heroSection) {
   observer.observe(heroSection);
+}
+
+// ── 背景音乐控制 ──
+let isMusicPlaying = false;
+let isFirstPlay = true;
+const INITIAL_PLAY_TIME = 58.5; // 初始播放时间（秒）
+
+function toggleMusic() {
+  const elements = {
+    music: document.getElementById('bgMusic'),
+    musicBtn: document.getElementById('musicBtn'),
+    musicIcon: document.getElementById('musicIcon'),
+    musicText: document.getElementById('musicText')
+  };
+  
+  // 检查所有元素是否存在
+  if (!Object.values(elements).every(el => el)) {
+    console.log('音乐相关元素未找到');
+    return;
+  }
+  
+  const { music, musicBtn, musicIcon, musicText } = elements;
+  
+  if (isMusicPlaying) {
+    // 暂停音乐
+    music.pause();
+    musicIcon.classList.remove('rotate');
+    musicIcon.classList.remove('pulse');
+    musicText.textContent = '音乐';
+    isMusicPlaying = false;
+  } else {
+    // 播放音乐
+    if (isFirstPlay) {
+      music.currentTime = INITIAL_PLAY_TIME;
+      isFirstPlay = false;
+    }
+    
+    music.play()
+      .then(() => {
+        musicIcon.classList.add('rotate');
+        musicIcon.classList.add('pulse');
+        musicText.textContent = '播放中';
+        isMusicPlaying = true;
+      })
+      .catch(error => {
+        console.error('音乐播放失败:', error);
+        handleMusicError(musicIcon, musicText, musicBtn);
+      });
+  }
+}
+
+// 处理音乐加载失败
+function handleMusicError(musicIcon, musicText, musicBtn) {
+  musicIcon.classList.remove('rotate');
+  musicIcon.classList.remove('pulse');
+  musicIcon.innerHTML = '<circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line>';
+  musicText.textContent = '音乐加载失败';
+  musicBtn.style.background = 'rgba(239,68,68,0.8)';
+  musicBtn.style.borderColor = 'rgba(239,68,68,0.35)';
+  
+  // 3秒后恢复原始状态
+  setTimeout(() => {
+    musicIcon.innerHTML = '<circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path>';
+    musicText.textContent = '音乐';
+    musicBtn.style.background = 'rgba(22,22,22,0.3)';
+    musicBtn.style.borderColor = 'rgba(255,255,255,0.15)';
+  }, 3000);
 }
 
 // ── 视频播放功能 ──
