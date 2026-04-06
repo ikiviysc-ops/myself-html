@@ -76,6 +76,43 @@ nav{
   border-color:rgba(255,255,255,0.2) !important;
 }
 
+/* 导航栏3D图标 */
+.nav-icon-3d{
+  background:linear-gradient(135deg,#ffffff 0%,#f0f0f0 50%,#e0e0e0 100%);
+  box-shadow:
+    0 2px 8px rgba(0,0,0,0.2),
+    inset 0 1px 0 rgba(255,255,255,0.8);
+  transition:transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  animation:navIconFloat 3s ease-in-out infinite;
+}
+
+.nav-icon-text{
+  font-size:8px !important;
+  font-weight:900;
+  color:#000;
+  text-shadow:0 1px 2px rgba(255,255,255,0.4);
+}
+
+/* 导航栏图标浮动动画 */
+@keyframes navIconFloat {
+  0%, 100% {
+    transform:translateY(0) rotate(0deg);
+  }
+  33% {
+    transform:translateY(-2px) rotate(5deg);
+  }
+  66% {
+    transform:translateY(2px) rotate(-5deg);
+  }
+}
+
+.nav-icon-3d:hover{
+  transform:scale(1.1) rotate(10deg);
+  box-shadow:
+    0 4px 12px rgba(0,0,0,0.3),
+    inset 0 1px 0 rgba(255,255,255,0.9);
+}
+
 /* ═══════════════════════════════
    扁平 ICON — 固定在屏幕正中间，层级在最底
 ══════════════════════════════ */
@@ -320,11 +357,33 @@ nav{
   line-height:1.65;max-width:300px;margin-bottom:48px;
 }
 
+.section-lines{
+  max-width:300px;
+  margin-bottom:48px;
+  overflow:hidden;
+}
+
+.section-text{
+  font-size:15px;
+  color:rgba(255,255,255,0.38);
+  line-height:1.65;
+  clip-path:polygon(100% 100%, 100% 100%, 100% 100%, 100% 100%);
+  opacity:0;
+  filter:blur(10px);
+  transition:clip-path 1.2s ease-out, opacity 1.2s ease-out, filter 1.2s ease-out;
+}
+
+.section-text.reveal{
+  clip-path:polygon(-50% -50%, 150% -50%, 150% 150%, -50% 150%);
+  opacity:1;
+  filter:blur(0);
+}
+
 .chips{display:flex;flex-direction:column;gap:10px;margin-bottom:60px}
 .chip{
-  background:rgba(22,22,22,0.3);
+  background:rgba(22,22,22,0.27);
   backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);
-  border:1px solid rgba(255,255,255,0.15);
+  border:1px solid rgba(255,255,255,0.18);
   border-radius:10px;padding:16px 18px;
   display:flex;align-items:flex-start;gap:14px;
   position:relative;overflow:hidden;
@@ -347,9 +406,9 @@ nav{
 
 /* ── WAITLIST CARD ── */
 .waitlist-card{
-  background:rgba(22,22,22,0.3);
+  background:rgba(22,22,22,0.27);
   backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);
-  border:1px solid rgba(255,255,255,0.15);
+  border:1px solid rgba(255,255,255,0.18);
   border-radius:10px;
   padding:28px 22px 24px;
   position:relative;overflow:hidden;
@@ -365,16 +424,37 @@ nav{
 
 .card-icon{
   width:64px;height:64px;
-  background:linear-gradient(145deg,#252525,#111);
+  background:linear-gradient(145deg,#ffffff 0%,#f0f0f0 50%,#e0e0e0 100%);
   border-radius:16px;
   display:flex;align-items:center;justify-content:center;
   margin:0 auto 10px;
-  box-shadow:0 6px 20px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.06);
+  box-shadow:0 3px 10px rgba(0,0,0,0.1),inset 0 1px 0 rgba(255,255,255,0.8);
+  transition:transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  animation:cardIconFloat 3s ease-in-out infinite;
+}
+
+/* 个人介绍卡片图标浮动动画 */
+@keyframes cardIconFloat {
+  0%, 100% {
+    transform:translateY(0) rotate(0deg);
+  }
+  33% {
+    transform:translateY(-4px) rotate(2deg);
+  }
+  66% {
+    transform:translateY(4px) rotate(-2deg);
+  }
+}
+
+.card-icon:hover{
+  transform:scale(1.05) rotate(5deg);
+  box-shadow:0 4px 12px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.1);
 }
 .card-icon-text{
   font-size:13px;font-weight:900;
   letter-spacing:-0.02em;
-  color:rgba(255,255,255,0.75);
+  color:#000;
+  text-shadow:0 1px 2px rgba(255,255,255,0.4);
 }
 .card-name{
   text-align:center;font-size:26px;font-weight:800;
@@ -457,15 +537,15 @@ nav{
 }
 .plans{display:flex;flex-direction:column;gap:10px}
 .plan{
-  background:rgba(22,22,22,0.3);
+  background:rgba(22,22,22,0.27);
   backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);
-  border:1px solid rgba(255,255,255,0.15);
+  border:1px solid rgba(255,255,255,0.18);
   border-radius:12px;padding:22px;transition:background 0.3s,border-color 0.3s;
 }
-.plan:hover{background:rgba(22,22,22,0.3);border-color:rgba(255,255,255,0.15)}
-.plan:active{background:rgba(22,22,22,0.3);border-color:rgba(255,255,255,0.15)}
-.plan.hot{background:rgba(22,22,22,0.3);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);border:1px solid rgba(255,255,255,0.15)}
-.plan.hot:active{background:rgba(22,22,22,0.3);border-color:rgba(255,255,255,0.15)}
+.plan:hover{background:rgba(22,22,22,0.27);border-color:rgba(255,255,255,0.18)}
+.plan:active{background:rgba(22,22,22,0.27);border-color:rgba(255,255,255,0.18)}
+.plan.hot{background:rgba(22,22,22,0.27);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);border:1px solid rgba(255,255,255,0.18)}
+.plan.hot:active{background:rgba(22,22,22,0.27);border-color:rgba(255,255,255,0.18)}
 .plan-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
 .plan-name{font-size:12px;font-weight:600;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px}
 .plan-price{font-size:36px;font-weight:800;letter-spacing:-0.04em;color:#fff;line-height:1}
@@ -590,6 +670,25 @@ footer{
   }
   .music-btn:hover{background:rgba(0,0,0,0.18) !important;color:#000 !important}
   
+  /* 导航栏3D图标 - 白色主题 */
+  .nav-icon-3d{
+    background:linear-gradient(135deg,#2a2a2a 0%,#1a1a1a 50%,#0f0f0f 100%);
+    box-shadow:
+      0 2px 8px rgba(0,0,0,0.3),
+      inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+  
+  .nav-icon-text{
+    color:#fff;
+    text-shadow:0 1px 2px rgba(0,0,0,0.4);
+  }
+  
+  .nav-icon-3d:hover{
+    box-shadow:
+      0 4px 12px rgba(0,0,0,0.4),
+      inset 0 1px 0 rgba(255,255,255,0.1);
+  }
+  
   .icon-3d{
     background:linear-gradient(135deg,#f5f5f5 0%,#e0e0e0 50%,#d0d0d0 100%);
     box-shadow:
@@ -659,14 +758,18 @@ footer{
   
   .section-body{color:rgba(0,0,0,0.38)}
   
+  .section-text{
+    color:rgba(0,0,0,0.38);
+  }
+  
   .sec-h{
     background:linear-gradient(135deg,#333333 0%,#000000 100%);
   }
   
   .chip{
-    background:rgba(245,245,245,0.8);
+    background:rgba(245,245,245,0.72);
     backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);
-    border:1px solid rgba(0,0,0,0.15);
+    border:1px solid rgba(0,0,0,0.18);
     cursor:default;
   }
   .chip::before{
@@ -681,8 +784,8 @@ footer{
   .chip-text p{color:rgba(0,0,0,0.38)}
   
   .waitlist-card{
-    background:rgba(245,245,245,0.8);
-    border:1px solid rgba(0,0,0,0.15);
+    background:rgba(245,245,245,0.72);
+    border:1px solid rgba(0,0,0,0.18);
   }
   
   .waitlist-card::before{
@@ -692,12 +795,19 @@ footer{
   .wd{background:rgba(0,0,0,0.12)}
   
   .card-icon{
-    background:linear-gradient(145deg,#e0e0e0,#f5f5f5);
-    box-shadow:0 6px 20px rgba(0,0,0,0.1),inset 0 1px 0 rgba(255,255,255,0.8);
+    background:linear-gradient(135deg,#2a2a2a 0%,#1a1a1a 50%,#0f0f0f 100%);
+    box-shadow:0 3px 10px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.05);
+    transition:transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  
+  .card-icon:hover{
+    transform:scale(1.05) rotate(5deg);
+    box-shadow:0 4px 12px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.1);
   }
   
   .card-icon-text{
-    color:rgba(0,0,0,0.75);
+    color:#fff;
+    text-shadow:0 1px 2px rgba(0,0,0,0.4);
   }
   
   .card-name sup{color:rgba(0,0,0,0.35)}
@@ -741,16 +851,16 @@ footer{
   }
   
   .plan{
-    background:rgba(245,245,245,0.8);
+    background:rgba(245,245,245,0.72);
     backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);
-    border:1px solid rgba(0,0,0,0.15);
+    border:1px solid rgba(0,0,0,0.18);
   }
   
-  .plan:hover{background:rgba(245,245,245,0.8);border-color:rgba(0,0,0,0.15)}
-.plan:active{background:rgba(245,245,245,0.8);border-color:rgba(0,0,0,0.15)}
+  .plan:hover{background:rgba(245,245,245,0.72);border-color:rgba(0,0,0,0.18)}
+.plan:active{background:rgba(245,245,245,0.72);border-color:rgba(0,0,0,0.18)}
 
-.plan.hot{background:rgba(245,245,245,0.8);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);border:1px solid rgba(0,0,0,0.15)}
-.plan.hot:active{background:rgba(245,245,245,0.8);border-color:rgba(0,0,0,0.15)}
+.plan.hot{background:rgba(245,245,245,0.72);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);border:1px solid rgba(0,0,0,0.18)}
+.plan.hot:active{background:rgba(245,245,245,0.72);border-color:rgba(0,0,0,0.18)}
   
   .plan-name{color:rgba(0,0,0,0.4)}
   .plan-price{color:#000}
@@ -813,7 +923,13 @@ footer{
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">IKIVIY™</a>
+  <div style="display: flex; align-items: center; gap: 8px;">
+    <!-- 3D图标 -->
+    <div class="nav-icon-3d" style="width: 18px; height: 18px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 8px;">
+      <span class="nav-icon-text" style="font-size: 8px;">I</span>
+    </div>
+    <a href="#" class="nav-logo">IKIVIY™</a>
+  </div>
   <div class="nav-right">
     <div class="nav-links">
       <a href="#about-me" class="nav-link" onclick="scrollToSection('about-me'); return false;">关于我</a>
@@ -880,7 +996,9 @@ footer{
   <!-- ALL IN ONE -->
   <div class="content-section" id="features">
     <div class="big-text">关于<br><span class="title-white">我。</span></div>
-    <p class="section-body">我是一名前端开发者和创意设计师，致力于创造美观、高效的用户体验。通过技术与设计的融合，我打造出独特的数字作品。</p>
+    <div class="section-lines">
+      <p class="section-text">我是一名前端开发者和创意设计师，<br>致力于创造美观、高效的用户体验。<br>通过技术与设计的融合，<br>我打造出独特的数字作品。</p>
+    </div>
 
     <!-- 视频模块卡片 -->
     <div class="waitlist-card" style="margin-bottom: 40px; padding: 3px 3px 3px 3px;">
@@ -976,21 +1094,41 @@ footer{
     <!-- 技能卡片 -->
     <div class="chips">
       <div class="chip">
-        <div class="chip-ic">💻</div>
+        <div class="chip-ic">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+            <line x1="8" y1="21" x2="16" y2="21"></line>
+            <line x1="12" y1="17" x2="12" y2="21"></line>
+          </svg>
+        </div>
         <div class="chip-text">
           <h4>前端技术</h4>
           <p>HTML5, CSS3, JavaScript, React, Vue, Three.js</p>
         </div>
       </div>
       <div class="chip">
-        <div class="chip-ic">🎨</div>
+        <div class="chip-ic">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+            <path d="M16 12l-4 4-4-4"></path>
+            <path d="M16 8l-4 4-4-4"></path>
+          </svg>
+        </div>
         <div class="chip-text">
           <h4>设计技能</h4>
           <p>UI/UX 设计, 响应式设计, 交互设计, 视觉设计</p>
         </div>
       </div>
       <div class="chip">
-        <div class="chip-ic">🚀</div>
+        <div class="chip-ic">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+        </div>
         <div class="chip-text">
           <h4>开发工具</h4>
           <p>Git, Webpack, Vite, Figma, Adobe Creative Suite</p>
@@ -1575,6 +1713,23 @@ document.querySelectorAll('.chip,.plan,.fi,.waitlist-card').forEach(el=>{
   el.style.transform='translate(30px, 30px)';
   el.style.transition='opacity 0.675s ease,transform 0.675s ease';
   io.observe(el);
+});
+
+// ── Section lines动画 ──
+const sectionLinesObserver = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const text = e.target.querySelector('.section-text');
+      if(text){
+        text.classList.add('reveal');
+      }
+      sectionLinesObserver.unobserve(e.target);
+    }
+  });
+},{threshold:0.3});
+
+document.querySelectorAll('.section-lines').forEach(el=>{
+  sectionLinesObserver.observe(el);
 });
 </script>
 </body>
