@@ -806,8 +806,8 @@ const observer = new IntersectionObserver((entries) => {
         
         // 设置初始位置
         if (el.classList.contains('hero-title') || el.classList.contains('hero-sub')) {
-          // 最上面的元素从下面来
-          el.style.transform = 'translate(0, 50px) scale(0.8)';
+          // 最上面的元素从左边来
+          el.style.transform = 'translate(-50px, 50px) scale(0.8)';
         } else if (el.closest('.feat-top-right') || el.closest('.feat-bottom-right')) {
           // 右边的元素从右边来
           el.style.transform = 'translate(50px, 50px) scale(0.8)';
@@ -821,8 +821,13 @@ const observer = new IntersectionObserver((entries) => {
       void heroSection.offsetWidth;
       
       // 按顺序添加动画类
-      allElements.forEach((el, index) => {
+      const elementsArray = Array.from(allElements);
+      elementsArray.forEach((el, index) => {
+        // 确保每个元素都能触发动画
         setTimeout(() => {
+          // 强制移除并重新添加动画类
+          el.classList.remove('animate-slide-up');
+          void el.offsetWidth;
           el.classList.add('animate-slide-up');
         }, index * 100);
       });
