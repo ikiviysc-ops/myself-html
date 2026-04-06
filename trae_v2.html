@@ -156,6 +156,25 @@ nav{
   }
 }
 
+/* 从下面滑动回来的动画 */
+@keyframes slideUpFromBottom{
+  from{
+    opacity:0;
+    transform:translate(0, 50px) scale(0.8);
+    filter:blur(10px);
+  }
+  to{
+    opacity:1;
+    transform:translate(0, 0) scale(1);
+    filter:blur(0);
+  }
+}
+
+/* 触发动画的类 */
+.animate-slide-up{
+  animation:slideUpFromBottom 1.89s ease-out forwards;
+}
+
 .hero-sub{
   font-size:13px;font-weight:400;
   color:rgba(255,255,255,0.38);
@@ -772,6 +791,41 @@ footer{
 </div><!-- end scroll-content -->
 
 <script>
+// ── Hero区域动画：从下面滑动回来 ──
+const heroSection = document.querySelector('.hero');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      // 触发从下面滑动回来的动画
+      const heroElements = heroSection.querySelectorAll('.hero-title, .hero-sub, .feat-title, .feat-desc');
+      heroElements.forEach((el, index) => {
+        // 重置动画状态
+        el.style.opacity = '0';
+        el.style.transform = 'translate(0, 50px) scale(0.8)';
+        el.style.filter = 'blur(10px)';
+        
+        // 移除可能存在的动画类
+        el.classList.remove('animate-slide-up');
+        
+        // 强制重排
+        void el.offsetWidth;
+        
+        // 添加动画类
+        setTimeout(() => {
+          el.classList.add('animate-slide-up');
+        }, index * 100);
+      });
+      
+      // 只触发一次
+      observer.unobserve(heroSection);
+    }
+  });
+}, { threshold: 0.1 });
+
+if (heroSection) {
+  observer.observe(heroSection);
+}
+
 // ── FAQ 展开 ──
 document.querySelectorAll('.fi summary').forEach(summary => {
   summary.addEventListener('click', (e) => {
