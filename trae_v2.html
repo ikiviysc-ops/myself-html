@@ -3,18 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trae™</title>
+<title>IKIVIY™</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{
+  scroll-behavior:smooth;
+  width:100%;
+  max-width:100%;
+  overflow-x:hidden;
+}
 body{
   background:#000;
   color:#fff;
   font-family:'Inter',sans-serif;
   overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
+  margin:0;
+  padding:0;
+  width:100%;
+  max-width:100%;
+  position:relative;
+  overflow-y:auto;
+  height:auto;
+  min-height:100vh;
 }
 
 /* ── NAV ── */
@@ -61,7 +74,6 @@ nav{
 .icon-3d{
   width:280px;height:280px;
   position:relative;
-  animation:gentleFloat 6s ease-in-out infinite;
   box-shadow:0 20px 40px rgba(0,0,0,0.5);
   background:linear-gradient(135deg,#2a2a2a 0%,#1a1a1a 50%,#0f0f0f 100%);
   border-radius:60px;
@@ -69,6 +81,8 @@ nav{
   box-shadow:
     0 10px 30px rgba(0,0,0,0.6),
     inset 0 1px 0 rgba(255,255,255,0.05);
+  opacity:0.7;
+
 }
 @keyframes gentleFloat{
   0%,100%{transform:translateY(0px) scale(1)}
@@ -127,6 +141,7 @@ nav{
   font-weight:800;
   line-height:1.02;
   letter-spacing:-0.04em;
+
   /* 奶油米白色渐变到白色 */
   background:linear-gradient(135deg,#f0e6d0 0%,#ffffff 100%);
   -webkit-background-clip:text;
@@ -170,7 +185,7 @@ nav{
 
 /* 触发动画的类 */
 .animate-slide-up{
-  animation:slideInFromPosition 1.89s ease-out forwards;
+  animation:slideInFromPosition 1.32s ease-out forwards;
 }
 
 .hero-sub{
@@ -278,7 +293,7 @@ nav{
 .chips{display:flex;flex-direction:column;gap:10px;margin-bottom:60px}
 .chip{
   background:rgba(22,22,22,0.3);
-  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);
   border:1px solid rgba(255,255,255,0.15);
   border-radius:10px;padding:16px 18px;
   display:flex;align-items:flex-start;gap:14px;
@@ -304,7 +319,7 @@ nav{
 /* ── WAITLIST CARD ── */
 .waitlist-card{
   background:rgba(22,22,22,0.3);
-  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);
   border:1px solid rgba(255,255,255,0.15);
   border-radius:10px;
   padding:28px 22px 24px;
@@ -413,12 +428,15 @@ nav{
 }
 .plans{display:flex;flex-direction:column;gap:10px}
 .plan{
-  background:rgba(255,255,255,0.13);
-  border:1px solid rgba(255,255,255,0.07);
+  background:rgba(22,22,22,0.3);
+  backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);
+  border:1px solid rgba(255,255,255,0.15);
   border-radius:12px;padding:22px;transition:background 0.3s,border-color 0.3s;
 }
-.plan:hover{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.12)}
-.plan.hot{background:rgba(37,98,234,0.08);border-color:rgba(37,98,234,0.35)}
+.plan:hover{background:rgba(22,22,22,0.3);border-color:rgba(255,255,255,0.15)}
+.plan:active{background:rgba(22,22,22,0.3);border-color:rgba(255,255,255,0.15)}
+.plan.hot{background:rgba(22,22,22,0.3);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);border:1px solid rgba(255,255,255,0.15)}
+.plan.hot:active{background:rgba(22,22,22,0.3);border-color:rgba(255,255,255,0.15)}
 .plan-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
 .plan-name{font-size:12px;font-weight:600;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px}
 .plan-price{font-size:36px;font-weight:800;letter-spacing:-0.04em;color:#fff;line-height:1}
@@ -438,10 +456,12 @@ nav{
   border-radius:100px;font-size:13px;font-weight:600;
   font-family:'Inter',sans-serif;cursor:pointer;border:none;transition:background 0.2s,border-color 0.2s,color 0.2s;
 }
-.pact.ol{background:transparent;color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.12)}
-.pact.ol:hover{border-color:rgba(255,255,255,0.3);color:#fff}
+.pact.ol{background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.12)}
+.pact.ol:hover{background:rgba(255,255,255,0.1);color:#fff}
+.pact.ol:active{background:rgba(255,255,255,0.1);color:#fff}
 .pact.sl{background:#2562ea;color:#fff}
 .pact.sl:hover{background:#1d4fc0}
+.pact.sl:active{background:#2562ea;color:#fff}
 
 /* ── FAQ ── */
 .faq-section{padding:80px 24px;position:relative;z-index:10}
@@ -513,24 +533,255 @@ footer{
 .flinks a{color:rgba(255,255,255,0.25);font-size:12px;text-decoration:none;transition:color 0.2s}
 .flinks a:hover{color:rgba(255,255,255,0.65)}
 .fcopy{font-size:11px;color:rgba(255,255,255,0.18);width:100%}
+
+/* ═══════════════════════════════
+   白色主题
+══════════════════════════════ */
+@media (prefers-color-scheme: light) {
+  body{
+    background:#fff;
+    color:#000;
+  }
+  
+  .nav-logo{color:#000;opacity:0.9}
+  .nav-link{color:rgba(0,0,0,0.4)}
+  .nav-link:hover{color:#000}
+  .nav-btn{
+    background:rgba(0,0,0,0.1);
+    color:rgba(0,0,0,0.8);
+    border:1px solid rgba(0,0,0,0.12);
+  }
+  .nav-btn:hover{background:rgba(0,0,0,0.18);color:#000}
+  
+  .icon-3d{
+    background:linear-gradient(135deg,#f5f5f5 0%,#e0e0e0 50%,#d0d0d0 100%);
+    box-shadow:
+      0 10px 30px rgba(0,0,0,0.1),
+      inset 0 1px 0 rgba(255,255,255,0.8);
+  }
+  
+  .icon-text{
+    background:linear-gradient(135deg,#000000 0%,#333333 50%,#666666 100%);
+    -webkit-background-clip:text !important;
+    -webkit-text-fill-color:transparent !important;
+    background-clip:text !important;
+    background-color:transparent !important;
+    text-shadow:0 2px 6px rgba(255,255,255,0.4);
+  }
+  
+  .icon-shadow{
+    background:radial-gradient(ellipse,rgba(0,0,0,0.2) 0%,transparent 70%);
+  }
+  
+  /* 白色第二行文字 */
+  .title-white{
+    -webkit-text-fill-color:#000 !important;
+    color:#000 !important;
+  }
+  
+  /* 大标题：透明感，可看到后面图标 */
+  .hero-title{
+    background:linear-gradient(135deg,#333333 0%,#000000 100%);
+  }
+  
+  /* 确保渐变文字在所有浏览器中正确显示 */
+  .hero-title,
+  .feat-title,
+  .big-text,
+  .sec-h,
+  .cta-section h2{
+    -webkit-background-clip:text !important;
+    -webkit-text-fill-color:transparent !important;
+    background-clip:text !important;
+    background-color:transparent !important;
+  }
+  
+  /* CTA标题渐变 */
+  .cta-section h2{
+    background:linear-gradient(135deg,#333333 0%,#000000 100%);
+  }
+  
+  .hero-title,
+  .feat-title{
+    color: #333333 !important;
+  }
+  
+  .hero-sub{color:rgba(0,0,0,0.38)}
+  .hero-sub strong{color:rgba(0,0,0,0.65)}
+  
+  .feat-title{
+    background:linear-gradient(135deg,#333333 0%,#000000 100%);
+  }
+  
+  .feat-desc{color:rgba(0,0,0,0.32)}
+  .feat-desc strong{color:rgba(0,0,0,0.55)}
+  
+  .big-text{
+    background:linear-gradient(135deg,#333333 0%,#000000 100%);
+  }
+  
+  .section-body{color:rgba(0,0,0,0.38)}
+  
+  .sec-h{
+    background:linear-gradient(135deg,#333333 0%,#000000 100%);
+  }
+  
+  .chip{
+    background:rgba(245,245,245,0.8);
+    backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);
+    border:1px solid rgba(0,0,0,0.15);
+  }
+  .chip::before{
+    background:linear-gradient(135deg,rgba(0,0,0,0.025) 0%,transparent 55%);
+  }
+  .chip:hover{background:rgba(230,230,230,0.8);border-color:rgba(0,0,0,0.2);}
+  
+  .chip-ic{
+    background:rgba(0,0,0,0.15);
+  }
+  
+  .chip-text h4{color:rgba(0,0,0,0.85)}
+  .chip-text p{color:rgba(0,0,0,0.38)}
+  
+  .waitlist-card{
+    background:rgba(245,245,245,0.8);
+    border:1px solid rgba(0,0,0,0.15);
+  }
+  
+  .waitlist-card::before{
+    background:linear-gradient(135deg,rgba(0,0,0,0.025) 0%,transparent 55%);
+  }
+  
+  .wd{background:rgba(0,0,0,0.12)}
+  
+  .card-icon{
+    background:linear-gradient(145deg,#e0e0e0,#f5f5f5);
+    box-shadow:0 6px 20px rgba(0,0,0,0.1),inset 0 1px 0 rgba(255,255,255,0.8);
+  }
+  
+  .card-icon-text{
+    color:rgba(0,0,0,0.75);
+  }
+  
+  .card-name sup{color:rgba(0,0,0,0.35)}
+  .card-beta{color:rgba(0,0,0,0.28)}
+  .card-p{color:rgba(0,0,0,0.38)}
+  
+  .msg-area{
+    background:rgba(0,0,0,0.04);
+    border:1px solid rgba(0,0,0,0.09);
+    color:rgba(0,0,0,0.5);
+  }
+  
+  .msg-area:focus{border-color:rgba(0,0,0,0.2);color:#000}
+  .msg-area::placeholder{color:rgba(0,0,0,0.22)}
+  
+  .ifield{
+    border-bottom:1px solid rgba(0,0,0,0.1);
+    color:rgba(0,0,0,0.55);
+  }
+  
+  .ifield:focus{border-color:rgba(0,0,0,0.28);color:#000}
+  .ifield::placeholder{color:rgba(0,0,0,0.22)}
+  
+  .join-email{
+    border-bottom:1px solid rgba(0,0,0,0.1);
+    color:rgba(0,0,0,0.55);
+  }
+  
+  .join-email:focus{border-color:rgba(0,0,0,0.28);color:#000}
+  .join-email::placeholder{color:rgba(0,0,0,0.22)}
+  
+  .card-footer{color:rgba(0,0,0,0.2)}
+  .card-footer a{color:rgba(0,0,0,0.28)}
+  
+  .success p{color:rgba(0,0,0,0.38)}
+  
+  .eyebrow{color:rgba(0,0,0,0.28)}
+  
+  .sec-h{
+    background:linear-gradient(135deg,#333333 0%,#000000 100%);
+  }
+  
+  .plan{
+    background:rgba(245,245,245,0.8);
+    backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);
+    border:1px solid rgba(0,0,0,0.15);
+  }
+  
+  .plan:hover{background:rgba(245,245,245,0.8);border-color:rgba(0,0,0,0.15)}
+.plan:active{background:rgba(245,245,245,0.8);border-color:rgba(0,0,0,0.15)}
+
+.plan.hot{background:rgba(245,245,245,0.8);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);border:1px solid rgba(0,0,0,0.15)}
+.plan.hot:active{background:rgba(245,245,245,0.8);border-color:rgba(0,0,0,0.15)}
+  
+  .plan-name{color:rgba(0,0,0,0.4)}
+  .plan-price{color:#000}
+  
+  .perks li{color:rgba(0,0,0,0.45)}
+  .perks li::before{content:'–';color:rgba(0,0,0,0.18)}
+  .perks li span{color:rgba(0,0,0,0.75)}
+  
+  .pact.ol{background:rgba(0,0,0,0.1);color:#000;border:1px solid rgba(0,0,0,0.12)}
+.pact.ol:hover{background:rgba(0,0,0,0.18);color:#000}
+.pact.ol:active{background:rgba(0,0,0,0.18);color:#000}
+  
+  .fi{border-bottom:1px solid rgba(0,0,0,0.06)}
+  
+  .fav{
+    background:rgba(0,0,0,0.08);
+    color:rgba(0,0,0,0.6);
+  }
+  
+  .fql{color:rgba(0,0,0,0.72)}
+  
+  .farr{color:rgba(0,0,0,0.22)}
+  .fi.open .farr{color:rgba(0,0,0,0.55)}
+  
+  .fans p{color:rgba(0,0,0,0.38)}
+  .fans p strong{color:rgba(0,0,0,0.62)}
+  
+  .cta-section p{color:rgba(0,0,0,0.35)}
+  
+  .cta-em{
+    background:rgba(0,0,0,0.05);
+    border:1px solid rgba(0,0,0,0.1);
+    color:#000;
+  }
+  
+  .cta-em:focus{border-color:rgba(0,0,0,0.28)}
+  .cta-em::placeholder{color:rgba(0,0,0,0.25)}
+  
+  .cta-sb{background:#000;color:#fff}
+  .cta-sb:hover{background:rgba(0,0,0,0.85)}
+  
+  footer{
+    border-top:1px solid rgba(0,0,0,0.06);
+  }
+  
+  .fbrand{color:rgba(0,0,0,0.35)}
+  .flinks a{color:rgba(0,0,0,0.25)}
+  .flinks a:hover{color:rgba(0,0,0,0.65)}
+  .fcopy{color:rgba(0,0,0,0.18)}
+}
 </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">Trae™</a>
+  <a href="#" class="nav-logo">IKIVIY™</a>
   <div class="nav-right">
-    <a href="#faq" class="nav-link">FAQ</a>
-    <a href="#pricing" class="nav-link">定价</a>
-    <a href="#waitlist" class="nav-btn">加入等候列表</a>
+    <a href="#about-me" class="nav-link" onclick="scrollToSection('about-me'); return false;">关于我</a>
+    <a href="#projects" class="nav-link">项目</a>
+    <a href="#contact" class="nav-btn">联系我</a>
   </div>
 </nav>
 
 <!-- ══ 扁平 ICON 固定在屏幕中间，最底层 ══ -->
 <div class="icon-sticky" id="iconSticky">
   <div class="icon-3d" id="icon3d">
-    <span class="icon-text">TRAE</span>
+    <span class="icon-text">IKIVIY</span>
   </div>
   <div class="icon-shadow"></div>
 </div>
@@ -540,25 +791,25 @@ footer{
 
   <!-- HERO -->
   <div class="hero">
-    <h1 class="hero-title">你的 AI<br><span class="title-white">开发工具包</span></h1>
-    <p class="hero-sub">多智能体并行协作，从 <strong>设计器</strong> 到 <strong>自定义代码</strong> 全流程覆盖。</p>
+    <h1 class="hero-title">你好，我是<br><span class="title-white">IKIVIY</span></h1>
+    <p class="hero-sub">前端开发者 & 创意设计师，专注于 <strong>交互体验</strong> 与 <strong>视觉设计</strong> 的融合。</p>
 
     <!-- 文字叠层：透明浮在图标前面 -->
     <div class="feats-layer">
 
       <div class="feat feat-top-right">
-        <div class="feat-title">完整智能体<br><span class="title-white">控制权</span></div>
-        <div class="feat-desc">集成 <strong>MCP 协议</strong>，多智能体模式让你同时在多个实例并行工作。</div>
+        <div class="feat-title">前端<br><span class="title-white">开发</span></div>
+        <div class="feat-desc">精通现代前端技术栈，构建美观、高效的用户界面和交互体验。</div>
       </div>
 
       <div class="feat feat-mid-left">
-        <div class="feat-title">内嵌<br><span class="title-white">知识库</span></div>
-        <div class="feat-desc">从 GSAP 动画、自定义组件到页面转场与 <strong>WebGL</strong>，全部内置。</div>
+        <div class="feat-title">创意<br><span class="title-white">设计</span></div>
+        <div class="feat-desc">注重用户体验和视觉美感，创造独特且富有吸引力的设计作品。</div>
       </div>
 
       <div class="feat feat-bottom-right">
-        <div class="feat-title">部署<br><span class="title-white">流水线</span></div>
-        <div class="feat-desc">一键部署，持续集成，即时回滚，<strong>CDN</strong> 全球加速分发。</div>
+        <div class="feat-title">技术<br><span class="title-white">探索</span></div>
+        <div class="feat-desc">不断学习和实验新技术，推动前端开发的边界和可能性。</div>
       </div>
 
     </div>
@@ -566,8 +817,8 @@ footer{
 
   <!-- ALL IN ONE -->
   <div class="content-section" id="features">
-    <div class="big-text">一站式<br><span class="title-white">应用。</span></div>
-    <p class="section-body">AI 智能体在你项目里的瑞士军刀，从开发到上线一条龙。</p>
+    <div class="big-text">关于<br><span class="title-white">我。</span></div>
+    <p class="section-body">我是一名前端开发者和创意设计师，致力于创造美观、高效的用户体验。通过技术与设计的融合，我打造出独特的数字作品。</p>
 
     <!-- 视频模块卡片 -->
     <div class="waitlist-card" style="margin-bottom: 40px; padding: 3px 3px 3px 3px;">
@@ -578,7 +829,7 @@ footer{
         </div>
       </div>
       
-      <!-- 视频播放器 -->
+      <!-- 个人介绍视频 -->
       <div style="margin-top: 2px;">
         <div style="
           width: 100%;
@@ -591,8 +842,44 @@ footer{
           position: relative;
           overflow: hidden;
         ">
+          <!-- 预览封面 -->
+          <img id="videoPoster" style="
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            display: block;
+            background: #000;
+          ">
+          
+          <video 
+            id="introVideo"
+            style="
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              border-radius: 10px;
+              display: block;
+              position: absolute;
+              top: 0;
+              left: 0;
+              opacity: 0;
+              pointer-events: none;
+            "
+            controls
+            preload="auto"
+            playsinline
+            webkit-playsinline
+            x5-playsinline
+            muted
+          >
+            <source src="video/save_feed_88A4AF66-DCD0-4C22-92BA-FEE7F45AFE03.mov" type="video/quicktime">
+            <source src="video/save_feed_88A4AF66-DCD0-4C22-92BA-FEE7F45AFE03.mov" type="video/mp4">
+            您的浏览器不支持视频播放。
+          </video>
+          
           <!-- 播放按钮 -->
-          <button style="
+          <button id="playBtn" style="
             width: 60px;
             height: 60px;
             border-radius: 50%;
@@ -605,7 +892,12 @@ footer{
             transition: transform 0.2s, background 0.2s;
             border: none;
             padding: 0;
-          " aria-label="播放视频" onmouseover="this.style.transform='scale(1.1)'; this.style.background='rgba(255, 255, 255, 0.25)';" onmouseout="this.style.transform='scale(1)'; this.style.background='rgba(255, 255, 255, 0.15)';">
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+          " aria-label="播放视频" onclick="playVideo()" onmouseover="this.style.transform='translate(-50%, -50%) scale(1.1)'; this.style.background='rgba(255, 255, 255, 0.25)';" onmouseout="this.style.transform='translate(-50%, -50%) scale(1)'; this.style.background='rgba(255, 255, 255, 0.15)';">
             <div style="
               width: 0;
               height: 0;
@@ -619,101 +911,97 @@ footer{
       </div>
     </div>
 
-    <!-- <div class="chips">
+    <!-- 技能卡片 -->
+    <div class="chips">
       <div class="chip">
-        <div class="chip-ic">🧠</div>
+        <div class="chip-ic">💻</div>
         <div class="chip-text">
-          <h4>上下文感知</h4>
-          <p>连接 MCP，赋予智能体对整个项目的完整理解，不再重复解释。</p>
+          <h4>前端技术</h4>
+          <p>HTML5, CSS3, JavaScript, React, Vue, Three.js</p>
         </div>
       </div>
       <div class="chip">
-        <div class="chip-ic">⚡</div>
+        <div class="chip-ic">🎨</div>
         <div class="chip-text">
-          <h4>智能体集群</h4>
-          <p>并行运行多个 AI 智能体，同时处理代码、动画、功能模块。</p>
-        </div>
-      </div>
-      <div class="chip">
-        <div class="chip-ic">🔄</div>
-        <div class="chip-text">
-          <h4>热重载开发</h4>
-          <p>基于 Bun 的极速开发环境，实时同步，热模块替换。</p>
+          <h4>设计技能</h4>
+          <p>UI/UX 设计, 响应式设计, 交互设计, 视觉设计</p>
         </div>
       </div>
       <div class="chip">
         <div class="chip-ic">🚀</div>
         <div class="chip-text">
-          <h4>一键部署</h4>
-          <p>点击即上线，线上与本地预览完全隔离，快速回滚随时可用。</p>
+          <h4>开发工具</h4>
+          <p>Git, Webpack, Vite, Figma, Adobe Creative Suite</p>
         </div>
       </div>
-    </div> -->
+    </div>
 
-    <!-- WAITLIST CARD -->
-    <div class="waitlist-card" id="waitlist">
+
+    <!-- 个人介绍卡片 -->
+    <div class="waitlist-card" id="about-me" style="margin-top: 40px;">
       <div class="win-dots">
         <div class="wd"></div><div class="wd"></div><div class="wd"></div>
       </div>
       <div class="card-icon">
-        <span class="card-icon-text">TRAE</span>
+        <span class="card-icon-text">IKIVIY</span>
       </div>
-      <div class="card-name">Trae<sup>™</sup></div>
-      <div class="card-beta">Beta 发布 · 2026 年 5 月</div>
-      <div class="card-h">获取早期访问</div>
-      <div class="card-p">一站式 AI 开发工作台<br>代码生成 · MCP · 部署全覆盖</div>
+      <div class="card-name">IKIVIY<sup>™</sup></div>
+      <div class="card-beta">前端开发者 & 创意设计师</div>
+      <div class="card-h">我的故事</div>
+      <div class="card-p">我热爱将创意转化为现实，通过代码和设计创造出有意义的数字体验。<br><br>专注于前端开发、交互设计和用户体验，不断探索新技术和设计趋势。</div>
     </div>
   </div>
 
-  <!-- PRICING -->
-  <div class="pricing-section" id="pricing">
-    <div class="eyebrow">定价</div>
-    <h2 class="sec-h">选择你的<br><span class="title-white">计划</span></h2>
+  <!-- 我的项目 -->
+  <div class="pricing-section" id="projects">
+    <div class="eyebrow">我的项目</div>
+    <h2 class="sec-h">创意<br><span class="title-white">作品</span></h2>
     <div class="plans">
       <div class="plan">
         <div class="plan-top">
           <div>
-            <div class="plan-name">Beta</div>
-            <div class="plan-price">免费<small> / 1个月</small></div>
+            <div class="plan-name">前端开发</div>
+            <div class="plan-price">技术项目</div>
           </div>
         </div>
         <ul class="perks">
-          <li>测试名额 <span>40 人</span></li>
-          <li>全部快速模型</li>
-          <li>无限项目</li>
+          <li>响应式网站</li>
+          <li>交互应用</li>
+          <li>性能优化</li>
+          <li>前端架构</li>
         </ul>
-        <button class="pact ol">申请 Beta →</button>
+        <button class="pact ol">查看项目 →</button>
       </div>
       <div class="plan hot">
         <div class="plan-top">
           <div>
-            <div class="plan-name">创始人</div>
-            <div class="plan-price">¥1,980<small> / 首年</small></div>
+            <div class="plan-name">UI/UX 设计</div>
+            <div class="plan-price">设计作品</div>
           </div>
-          <div class="ptag">5折 · 永久锁价</div>
+          <div class="ptag">精选</div>
         </div>
         <ul class="perks">
-          <li>名额 <span>仅限 200 个</span></li>
-          <li>无限积分</li>
-          <li>全部 AI 模型</li>
-          <li>完整推理深度</li>
-          <li>专属 Discord 频道</li>
+          <li>用户界面设计</li>
+          <li>交互原型</li>
+          <li>用户体验研究</li>
+          <li>视觉设计</li>
         </ul>
-        <button class="pact sl">立即获取创始人资格</button>
+        <button class="pact sl">浏览作品</button>
       </div>
       <div class="plan">
         <div class="plan-top">
           <div>
-            <div class="plan-name">基础版</div>
-            <div class="plan-price">¥99<small> / 月</small></div>
+            <div class="plan-name">创意编程</div>
+            <div class="plan-price">艺术项目</div>
           </div>
         </div>
         <ul class="perks">
-          <li>12,000 积分/月</li>
-          <li>最多 10 个项目</li>
-          <li>CDN 部署</li>
+          <li>生成艺术</li>
+          <li>数据可视化</li>
+          <li>WebGL 实验</li>
+          <li>创意工具</li>
         </ul>
-        <button class="pact ol">即将开放</button>
+        <button class="pact ol">探索更多</button>
       </div>
     </div>
   </div>
@@ -725,53 +1013,53 @@ footer{
     <div class="faq-list">
       <details class="fi" open>
         <summary class="fq">
-          <div class="fq-left"><div class="fav">A</div><div class="fql">会影响网站性能吗？</div></div>
+          <div class="fq-left"><div class="fav">S</div><div class="fql">你提供哪些服务？</div></div>
           <span class="farr">+</span>
         </summary>
-        <div class="fans"><p>和所有自定义代码一样，开销仅来自代码本身。所有产物经过 <strong>打包、压缩、混淆</strong>，不加载额外外部库，性能影响降到最低。</p></div>
+        <div class="fans"><p>我提供前端开发、UI/UX 设计、交互设计和创意编程等服务，帮助客户打造美观、高效的数字产品。</p></div>
       </details>
       <details class="fi">
         <summary class="fq">
-          <div class="fq-left"><div class="fav">M</div><div class="fql">文件托管在哪里？</div></div>
+          <div class="fq-left"><div class="fav">P</div><div class="fql">项目流程是怎样的？</div></div>
           <span class="farr">+</span>
         </summary>
-        <div class="fans"><p>构建完成后上传至 <strong>Cloudflare R2</strong>，通过专属 CDN 域名提供服务，确保全球访问速度。</p></div>
+        <div class="fans"><p>项目流程通常包括需求分析、设计阶段、开发阶段、测试和部署。我会与客户保持密切沟通，确保项目顺利完成。</p></div>
       </details>
       <details class="fi">
         <summary class="fq">
-          <div class="fq-left"><div class="fav">R</div><div class="fql">推错文件了怎么办？</div></div>
+          <div class="fq-left"><div class="fav">T</div><div class="fql">技术栈是什么？</div></div>
           <span class="farr">+</span>
         </summary>
-        <div class="fans"><p>部署面板中有 <strong>即时回滚</strong> 选项，点击后上一版本立即生效，本地修复后再重新推送。</p></div>
+        <div class="fans"><p>我使用现代前端技术栈，包括 HTML5、CSS3、JavaScript、React、Vue 和 Three.js 等，根据项目需求选择最合适的技术。</p></div>
       </details>
       <details class="fi">
         <summary class="fq">
-          <div class="fq-left"><div class="fav">S</div><div class="fql">支持哪些 AI 模型？</div></div>
+          <div class="fq-left"><div class="fav">C</div><div class="fql">如何联系你？</div></div>
           <span class="farr">+</span>
         </summary>
-        <div class="fans"><p>集成 <strong>OpenAI、Claude、Gemini</strong> 等主流模型，系统自动编排，也可手动切换。</p></div>
+        <div class="fans"><p>你可以通过下方的联系表单或社交媒体与我取得联系，我会在 24 小时内回复你的消息。</p></div>
       </details>
     </div>
   </div>
 
   <!-- CTA BOTTOM -->
-  <div class="cta-section">
-    <h2>连接。<br><span class="title-white">提问。</span><span class="title-white">上线。</span></h2>
-    <p>从下载到运行，12 步完成全套配置。</p>
+  <div class="cta-section" id="contact">
+    <h2>联系。<br><span class="title-white">合作。</span><span class="title-white">创造。</span></h2>
+    <p>如果你有项目需求或合作意向，欢迎随时与我联系。</p>
     <div class="cta-row">
       <label style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">邮箱地址</label>
       <input class="cta-em" type="email" id="cta-email" placeholder="你的邮箱地址" autocomplete="email">
-      <button class="cta-sb" onclick="handleCta(this)">加入</button>
+      <button class="cta-sb" onclick="handleCta(this)">联系我</button>
     </div>
   </div>
 
   <!-- FOOTER -->
   <footer>
-    <div class="fbrand">Trae™</div>
+    <div class="fbrand">IKIVIY™</div>
     <ul class="flinks">
-      <li><a href="#">文档</a></li>
-      <li><a href="#">隐私</a></li>
-      <li><a href="#">Twitter</a></li>
+      <li><a href="#about-me">关于</a></li>
+      <li><a href="#projects">项目</a></li>
+      <li><a href="#contact">联系</a></li>
     </ul>
     <div class="fcopy">© 2026 — 保留所有权利</div>
   </footer>
@@ -842,28 +1130,28 @@ const observer = new IntersectionObserver((entries) => {
         setTimeout(() => {
           heroTitle.classList.add('animate-slide-up');
         }, delay);
-        delay += 100;
+        delay += 70;
       }
       
       if (heroSub) {
         setTimeout(() => {
           heroSub.classList.add('animate-slide-up');
         }, delay);
-        delay += 100;
+        delay += 70;
       }
       
       featTitles.forEach((title) => {
         setTimeout(() => {
           title.classList.add('animate-slide-up');
         }, delay);
-        delay += 100;
+        delay += 70;
       });
       
       featDescs.forEach((desc) => {
         setTimeout(() => {
           desc.classList.add('animate-slide-up');
         }, delay);
-        delay += 100;
+        delay += 70;
       });
     } else {
       // 离开视口：隐藏所有元素
@@ -879,6 +1167,120 @@ const observer = new IntersectionObserver((entries) => {
 if (heroSection) {
   observer.observe(heroSection);
 }
+
+// ── 视频播放功能 ──
+function playVideo() {
+  const video = document.getElementById('introVideo');
+  const playBtn = document.getElementById('playBtn');
+  const videoPoster = document.getElementById('videoPoster');
+  
+  if (video && playBtn && videoPoster) {
+    videoPoster.style.display = 'none';
+    video.style.opacity = '1';
+    video.style.pointerEvents = 'auto';
+    video.muted = false;
+    playBtn.style.display = 'none';
+    video.controls = false; // 隐藏操作按钮
+    video.currentTime = 0; // 从头开始播放
+    video.play().catch(error => {
+      console.log('视频播放失败:', error);
+      video.controls = true; // 如果自动播放失败，显示操作按钮
+    });
+  }
+}
+
+// 点击视频切换显示/隐藏操作按钮
+document.addEventListener('DOMContentLoaded', function() {
+  const video = document.getElementById('introVideo');
+  const playBtn = document.getElementById('playBtn');
+  const videoPoster = document.getElementById('videoPoster');
+  
+  if (video) {
+    video.addEventListener('click', function() {
+      if (video.style.opacity === '1') {
+        video.controls = !video.controls;
+      }
+    });
+    
+    // 自动截取视频第5秒作为封面
+    const generatePoster = function() {
+      // 先播放视频一小段来加载
+      video.play().then(() => {
+        // 等待视频加载一点后再跳转到第5秒
+        setTimeout(() => {
+          video.pause();
+          
+          // 跳转到第5秒
+          const targetTime = Math.min(5, video.duration - 0.1);
+          
+          video.currentTime = targetTime;
+          
+          // 等待seek完成
+          const seekHandler = () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth || 640;
+            canvas.height = video.videoHeight || 360;
+            const ctx = canvas.getContext('2d');
+            
+            try {
+              ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+              const posterData = canvas.toDataURL('image/jpeg', 0.8);
+              
+              if (videoPoster) {
+                videoPoster.src = posterData;
+              }
+            } catch (e) {
+              console.log('无法截取视频封面:', e);
+            }
+            
+            // 暂停视频
+            video.pause();
+            video.removeEventListener('seeked', seekHandler);
+          };
+          
+          video.addEventListener('seeked', seekHandler);
+        }, 500);
+      }).catch((e) => {
+        console.log('自动播放失败，尝试备用方案:', e);
+        
+        // 如果自动播放失败，使用元数据加载事件
+        const metadataHandler = () => {
+          const targetTime = Math.min(5, video.duration - 0.1);
+          video.currentTime = targetTime;
+          
+          const seekHandler = () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth || 640;
+            canvas.height = video.videoHeight || 360;
+            const ctx = canvas.getContext('2d');
+            
+            try {
+              ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+              const posterData = canvas.toDataURL('image/jpeg', 0.8);
+              
+              if (videoPoster) {
+                videoPoster.src = posterData;
+              }
+            } catch (e) {
+              console.log('无法截取视频封面:', e);
+            }
+            
+            video.pause();
+            video.removeEventListener('seeked', seekHandler);
+          };
+          
+          video.addEventListener('seeked', seekHandler);
+          video.removeEventListener('loadedmetadata', metadataHandler);
+        };
+        
+        video.addEventListener('loadedmetadata', metadataHandler);
+      });
+    };
+    
+    // 立即尝试生成封面
+    generatePoster();
+  }
+});
 
 // ── FAQ 展开 ──
 document.querySelectorAll('.fi summary').forEach(summary => {
@@ -919,6 +1321,14 @@ let targetX = 0, targetY = 0;
 let currentX = 0, currentY = 0;
 let randomTargetX = 0, randomTargetY = 0;
 let scrollY = 0;
+let randomTargetRotation = 0;
+let currentRotation = 0;
+let randomTargetScale = 1;
+let currentScale = 1;
+let randomTargetFlipY = 0;
+let currentFlipY = 0;
+let randomTargetFlipX = 0;
+let currentFlipX = 0;
 
 // 鼠标和触摸位置
 let mouseX = 0, mouseY = 0;
@@ -928,6 +1338,10 @@ let mouseRatioX = 0, mouseRatioY = 0;
 function newRandomTarget(){
   randomTargetX = (Math.random() - 0.5) * 40;  // ±20px
   randomTargetY = (Math.random() - 0.5) * 30;  // ±15px
+  randomTargetRotation = (Math.random() - 0.5) * 30;  // ±15度
+  randomTargetScale = 0.95 + Math.random() * 0.1;  // 0.95-1.05
+  randomTargetFlipY = (Math.random() - 0.5) * 45;  // ±22.5度
+  randomTargetFlipX = (Math.random() - 0.5) * 30;  // ±15度
 }
 newRandomTarget();
 setInterval(newRandomTarget, 2800);
@@ -979,25 +1393,43 @@ window.addEventListener('touchmove',(e)=>{
 // 动画循环：平滑插值
 let animFrame;
 function animate(){
-  // 滚动带来的轻微视差（比内容滚得慢，所以有悬浮感）
-  // icon 固定在 fixed position，本身不随滚动，但加一点位移感
-  const scrollRatio = scrollY * 0.0005; // 很小的系数
-
-  // 插值到随机目标
+  // 仅保留随机漂移，移除鼠标和滚动的影响
   currentX += (randomTargetX - currentX) * 0.008;
   currentY += (randomTargetY - currentY) * 0.008;
+  currentRotation += (randomTargetRotation - currentRotation) * 0.008;
+  currentScale += (randomTargetScale - currentScale) * 0.008;
+  currentFlipY += (randomTargetFlipY - currentFlipY) * 0.008;
+  currentFlipX += (randomTargetFlipX - currentFlipX) * 0.008;
 
-  // 扁平效果：只有位移和轻微缩放
-  const moveX = scrollRatio * 15 + mouseRatioX * 30;
-  const moveY = -scrollRatio * 8 - mouseRatioY * 30;
-  const scale = 1 + (mouseRatioX * 0.05);
+  // 3D效果：位移、旋转、缩放和翻转
+  const moveX = currentX;
+  const moveY = currentY;
+  const scale = currentScale;
 
-  icon.style.transform = `translate(calc(-50% + ${currentX + moveX}px), calc(-50% + ${currentY + moveY}px))`;
-  icon3d.style.transform = `scale(${scale})`;
+  icon.style.transform = `translate(calc(-50% + ${moveX}px), calc(-50% + ${moveY}px))`;
+  icon3d.style.transform = `scale(${scale}) rotate(${currentRotation}deg) rotateY(${currentFlipY}deg) rotateX(${currentFlipX}deg)`;
 
   animFrame = requestAnimationFrame(animate);
 }
 animate();
+
+// ── 平滑滚动到指定部分 ──
+function scrollToSection(sectionId) {
+  const section = document.getElementById(sectionId);
+  if (section) {
+    const sectionTop = section.getBoundingClientRect().top + window.pageYOffset;
+    const viewportHeight = window.innerHeight;
+    const offset = viewportHeight / 2 - section.offsetHeight / 2;
+    const scrollPosition = sectionTop - offset;
+    
+    window.scrollTo({
+      top: scrollPosition,
+      behavior: 'smooth'
+    });
+  }
+}
+
+
 
 // ── 进场动画 ──
 const io = new IntersectionObserver(entries=>{
