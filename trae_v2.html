@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trae™</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:#000;
+  color:#fff;
+  font-family:'Inter',sans-serif;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 24px;
+}
+.nav-logo{
+  font-size:15px;font-weight:800;color:#fff;
+  text-decoration:none;letter-spacing:-0.03em;
+  opacity:0.9;
+}
+.nav-right{display:flex;align-items:center;gap:16px}
+.nav-link{
+  color:rgba(255,255,255,0.4);font-size:14px;
+  text-decoration:none;transition:color 0.2s;
+}
+.nav-link:hover{color:#fff}
+.nav-btn{
+  background:rgba(255,255,255,0.1);
+  color:rgba(255,255,255,0.8);
+  border:1px solid rgba(255,255,255,0.12);
+  padding:8px 18px;border-radius:100px;
+  font-size:13px;font-weight:500;
+  text-decoration:none;
+  backdrop-filter:blur(10px);
+  transition:background 0.2s,color 0.2s;
+}
+.nav-btn:hover{background:rgba(255,255,255,0.18);color:#fff}
+
+/* ═══════════════════════════════
+   扁平 ICON — 固定在屏幕正中间，层级在最底
+══════════════════════════════ */
+.icon-sticky{
+  position:fixed;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  z-index:1; /* 最底层 */
+  pointer-events:none;
+  transition:transform 0.12s ease-out;
+}
+
+.icon-3d{
+  width:280px;height:280px;
+  position:relative;
+  animation:gentleFloat 6s ease-in-out infinite;
+  box-shadow:0 20px 40px rgba(0,0,0,0.5);
+  background:linear-gradient(135deg,#2a2a2a 0%,#1a1a1a 50%,#0f0f0f 100%);
+  border-radius:60px;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+}
+@keyframes gentleFloat{
+  0%,100%{transform:translateY(0px) scale(1)}
+  30%{transform:translateY(-8px) scale(1.02)}
+  60%{transform:translateY(-4px) scale(0.98)}
+}
+
+/* 整体投影 */
+.icon-shadow{
+  position:absolute;
+  bottom:-40px;left:10%;right:10%;
+  height:40px;
+  background:radial-gradient(ellipse,rgba(0,0,0,0.7) 0%,transparent 70%);
+  filter:blur(12px);
+}
+
+/* IKIVIY 文字在图标内 */
+.icon-text{
+  font-size:40px;font-weight:900;
+  letter-spacing:-0.04em;
+  user-select:none;
+  background:linear-gradient(135deg,#ffffff 0%,#e0e0e0 50%,#b0b0b0 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  text-shadow:0 2px 6px rgba(0,0,0,0.4);
+}
+
+/* ═══════════════════════════════
+   可滚动内容层 — 层级在图标上面
+══════════════════════════════ */
+.scroll-content{
+  position:relative;
+  z-index:10;
+}
+
+/* ── HERO SECTION ── */
+.hero{
+  min-height:100vh;
+  padding:100px 24px 80px;
+  display:flex;flex-direction:column;
+  position:relative;
+}
+
+/* 白色第二行文字 */
+.title-white{
+  background:none !important;
+  -webkit-background-clip:text !important;
+  -webkit-text-fill-color:#fff !important;
+  color:#fff !important;
+}
+
+/* 大标题：透明感，可看到后面图标 */
+.hero-title{
+  font-size:clamp(40px,10vw,60px);
+  font-weight:800;
+  line-height:1.02;
+  letter-spacing:-0.04em;
+  /* 奶油米白色渐变到白色 */
+  background:linear-gradient(135deg,#f0e6d0 0%,#ffffff 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  mix-blend-mode:normal;
+  position:relative;z-index:2;
+  margin-bottom:14px;
+  animation:slideIn 1.89s ease-out forwards;
+  opacity:0;
+  transform:translate(-50px, 50px) scale(0.8);
+  filter:blur(10px);
+}
+
+@keyframes slideIn{
+  to{
+    opacity:1;
+    transform:translate(0, 0) scale(1);
+    filter:blur(0);
+  }
+}
+
+.hero-sub{
+  font-size:13px;font-weight:400;
+  color:rgba(255,255,255,0.38);
+  line-height:1.65;max-width:280px;
+  position:relative;z-index:2;
+  animation:slideIn 1.89s ease-out forwards;
+  opacity:0;
+  transform:translate(-50px, 50px) scale(0.8);
+  filter:blur(10px);
+  animation-delay:0.2s;
+}
+.hero-sub strong{color:rgba(255,255,255,0.65);font-weight:500}
+
+/* ── 特性文字块 — 透明叠层 ── */
+/* 这些文字浮在图标前面，但有透明度 */
+.feats-layer{
+  position:relative;
+  min-height:480px;
+  margin-top:20px;
+  /* 整个区域内容叠在图标上 */
+  z-index:10;
+}
+
+.feat{
+  position:absolute;
+  max-width:200px;
+}
+.feat-title{
+  font-size:clamp(24px,7vw,36px);
+  font-weight:800;
+  line-height:1.05;
+  letter-spacing:-0.03em;
+  /* 奶油米白色渐变到白色 */
+  background:linear-gradient(135deg,#f0e6d0 0%,#ffffff 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  margin-bottom:8px;
+  animation:slideIn 1.89s ease-out forwards;
+  opacity:0;
+  filter:blur(10px);
+}
+
+/* 右上角 - 从右边来 */
+.feat:nth-child(1) .feat-title{
+  animation-delay:0.3s;
+  transform:translate(50px, 50px) scale(0.8);
+}
+/* 中间左边 - 从左边来 */
+.feat:nth-child(2) .feat-title{
+  animation-delay:0.6s;
+  transform:translate(-50px, 50px) scale(0.8);
+}
+/* 右下角 - 从右边来 */
+.feat:nth-child(3) .feat-title{
+  animation-delay:0.9s;
+  transform:translate(50px, 50px) scale(0.8);
+}
+
+.feat-desc{
+  font-size:12px;
+  color:rgba(255,255,255,0.32);
+  line-height:1.6;
+  font-weight:400;
+  animation:slideIn 1.89s ease-out forwards;
+  opacity:0;
+  filter:blur(10px);
+}
+
+.feat-desc strong{color:rgba(255,255,255,0.55);font-weight:500}
+
+/* 右上角 - 从右边来 */
+.feat:nth-child(1) .feat-desc{
+  animation-delay:0.5s;
+  transform:translate(50px, 50px) scale(0.8);
+}
+/* 中间左边 - 从左边来 */
+.feat:nth-child(2) .feat-desc{
+  animation-delay:0.8s;
+  transform:translate(-50px, 50px) scale(0.8);
+}
+/* 右下角 - 从右边来 */
+.feat:nth-child(3) .feat-desc{
+  animation-delay:1.1s;
+  transform:translate(50px, 50px) scale(0.8);
+}
+
+/* 位置：模仿原版左右交错 */
+.feat-top-right{top:8px;right:0;text-align:left}
+.feat-mid-left{top:220px;left:0;text-align:left}
+.feat-bottom-right{bottom:0;right:0;text-align:left}
+
+/* ── 后续内容区 ── */
+.content-section{
+  padding:80px 24px;
+  position:relative;z-index:10;
+}
+.big-text{
+  font-size:clamp(52px,13vw,72px);
+  font-weight:800;letter-spacing:-0.04em;
+  line-height:1.0;
+  background:linear-gradient(135deg,#f0e6d0 0%,#ffffff 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  margin-bottom:16px;
+}
+.section-body{
+  font-size:15px;color:rgba(255,255,255,0.38);
+  line-height:1.65;max-width:300px;margin-bottom:48px;
+}
+
+.chips{display:flex;flex-direction:column;gap:10px;margin-bottom:60px}
+.chip{
+  background:rgba(22,22,22,0.3);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:10px;padding:16px 18px;
+  display:flex;align-items:flex-start;gap:14px;
+  transition:background 0.3s,border-color 0.3s;
+  position:relative;overflow:hidden;
+}
+.chip::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.025) 0%,transparent 55%);
+  pointer-events:none;
+}
+.chip:hover{background:rgba(255,255,255,0.25);border-color:rgba(255,255,255,0.2);}
+.chip-ic{
+  width:34px;height:34px;
+  background:rgba(255,255,255,0.15);
+  border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;flex-shrink:0;margin-top:1px;
+}
+.chip-text h4{font-size:14px;font-weight:600;color:rgba(255,255,255,0.85);margin-bottom:3px;letter-spacing:-0.01em}
+.chip-text p{font-size:13px;color:rgba(255,255,255,0.38);line-height:1.6}
+
+/* ── WAITLIST CARD ── */
+.waitlist-card{
+  background:rgba(22,22,22,0.3);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:10px;
+  padding:28px 22px 24px;
+  position:relative;overflow:hidden;
+  margin-bottom:0;
+}
+.waitlist-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.025) 0%,transparent 55%);
+  pointer-events:none;
+}
+.win-dots{display:flex;gap:7px;margin-bottom:22px}
+.wd{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,0.12)}
+
+.card-icon{
+  width:64px;height:64px;
+  background:linear-gradient(145deg,#252525,#111);
+  border-radius:16px;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 10px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.06);
+}
+.card-icon-text{
+  font-size:13px;font-weight:900;
+  letter-spacing:-0.02em;
+  color:rgba(255,255,255,0.75);
+}
+.card-name{
+  text-align:center;font-size:26px;font-weight:800;
+  letter-spacing:-0.03em;margin-bottom:3px;
+}
+.card-name sup{font-size:11px;font-weight:400;color:rgba(255,255,255,0.35);vertical-align:super}
+.card-beta{text-align:center;font-size:12px;color:rgba(255,255,255,0.28);margin-bottom:20px}
+.card-h{text-align:center;font-size:24px;font-weight:800;letter-spacing:-0.03em;margin-bottom:6px}
+.card-p{text-align:center;font-size:13px;color:rgba(255,255,255,0.38);line-height:1.6;margin-bottom:20px}
+
+.msg-area{
+  width:100%;background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.09);
+  border-radius:10px;padding:12px 14px;
+  color:rgba(255,255,255,0.5);
+  font-family:'Inter',sans-serif;font-size:13px;
+  resize:none;height:72px;outline:none;margin-bottom:10px;
+  transition:border-color 0.2s;
+}
+.msg-area:focus{border-color:rgba(255,255,255,0.2);color:#fff}
+.msg-area::placeholder{color:rgba(255,255,255,0.22)}
+
+.ifield{
+  width:100%;background:transparent;border:none;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+  padding:13px 0;color:rgba(255,255,255,0.55);
+  font-family:'Inter',sans-serif;font-size:14px;
+  outline:none;transition:border-color 0.2s,color 0.2s;
+  margin-bottom:10px;display:block;
+}
+.ifield:focus{border-color:rgba(255,255,255,0.28);color:#fff}
+.ifield::placeholder{color:rgba(255,255,255,0.22)}
+
+.join-row{display:flex;gap:10px;align-items:center}
+.join-email{
+  flex:1;background:transparent;border:none;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+  padding:13px 0;color:rgba(255,255,255,0.55);
+  font-family:'Inter',sans-serif;font-size:14px;outline:none;
+  transition:border-color 0.2s,color 0.2s;
+}
+.join-email:focus{border-color:rgba(255,255,255,0.28);color:#fff}
+.join-email::placeholder{color:rgba(255,255,255,0.22)}
+.join-btn{
+  background:#2562ea;color:#fff;border:none;
+  padding:11px 18px;border-radius:100px;
+  font-family:'Inter',sans-serif;font-size:13px;font-weight:600;
+  cursor:pointer;white-space:nowrap;transition:background 0.2s,transform 0.2s;flex-shrink:0;
+}
+.join-btn:hover{background:#1d4fc0}
+.join-btn:active{transform:scale(0.96)}
+
+.card-footer{
+  display:flex;flex-wrap:wrap;gap:4px;justify-content:center;
+  margin-top:20px;font-size:11px;color:rgba(255,255,255,0.2);
+  text-align:center;
+}
+.card-footer a{color:rgba(255,255,255,0.28);text-decoration:underline}
+
+.success{display:none;text-align:center;padding:20px 0}
+.success h3{font-size:20px;font-weight:800;letter-spacing:-0.02em;margin-bottom:6px}
+.success p{font-size:13px;color:rgba(255,255,255,0.38)}
+
+/* ── PRICING ── */
+.pricing-section{
+  padding:80px 24px;position:relative;z-index:10;
+}
+.eyebrow{
+  font-size:11px;font-weight:500;
+  color:rgba(255,255,255,0.28);
+  text-transform:uppercase;letter-spacing:0.14em;margin-bottom:10px;
+}
+.sec-h{
+  font-size:clamp(36px,10vw,52px);font-weight:800;
+  letter-spacing:-0.04em;line-height:1.05;margin-bottom:36px;
+  background:linear-gradient(135deg,#f0e6d0 0%,#ffffff 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.plans{display:flex;flex-direction:column;gap:10px}
+.plan{
+  background:rgba(255,255,255,0.13);
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:12px;padding:22px;transition:background 0.3s,border-color 0.3s;
+}
+.plan:hover{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.12)}
+.plan.hot{background:rgba(37,98,234,0.08);border-color:rgba(37,98,234,0.35)}
+.plan-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
+.plan-name{font-size:12px;font-weight:600;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px}
+.plan-price{font-size:36px;font-weight:800;letter-spacing:-0.04em;color:#fff;line-height:1}
+.plan-price small{font-size:14px;font-weight:400;opacity:0.4}
+.ptag{
+  background:rgba(37,98,234,0.2);color:#7aa8ff;
+  border:1px solid rgba(37,98,234,0.35);
+  font-size:10px;font-weight:600;padding:3px 9px;
+  border-radius:100px;letter-spacing:0.06em;white-space:nowrap;
+}
+.perks{display:flex;flex-direction:column;gap:7px;margin-bottom:18px;list-style:none}
+.perks li{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.45)}
+.perks li::before{content:'–';color:rgba(255,255,255,0.18)}
+.perks li span{color:rgba(255,255,255,0.75);font-weight:500}
+.pact{
+  display:block;width:100%;text-align:center;padding:11px;
+  border-radius:100px;font-size:13px;font-weight:600;
+  font-family:'Inter',sans-serif;cursor:pointer;border:none;transition:background 0.2s,border-color 0.2s,color 0.2s;
+}
+.pact.ol{background:transparent;color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.12)}
+.pact.ol:hover{border-color:rgba(255,255,255,0.3);color:#fff}
+.pact.sl{background:#2562ea;color:#fff}
+.pact.sl:hover{background:#1d4fc0}
+
+/* ── FAQ ── */
+.faq-section{padding:80px 24px;position:relative;z-index:10}
+.faq-list{margin-top:28px}
+.fi{border-bottom:1px solid rgba(255,255,255,0.06)}
+.fq{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 0;cursor:pointer;gap:14px;
+}
+.fq-left{display:flex;align-items:center;gap:11px}
+.fav{
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(255,255,255,0.08);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;color:rgba(255,255,255,0.6);flex-shrink:0;
+}
+.fql{font-size:14px;font-weight:500;color:rgba(255,255,255,0.72);line-height:1.3}
+.farr{
+  font-size:20px;color:rgba(255,255,255,0.22);
+  transition:transform 0.3s,color 0.3s;flex-shrink:0;line-height:1;
+}
+.fi.open .farr{transform:rotate(45deg);color:rgba(255,255,255,0.55)}
+.fans{display:none;padding:0 0 18px 43px}
+.fi.open .fans{display:block}
+.fans p{font-size:13px;color:rgba(255,255,255,0.38);line-height:1.7}
+.fans p strong{color:rgba(255,255,255,0.62);font-weight:500}
+
+/* ── CTA BOTTOM ── */
+.cta-section{
+  padding:80px 24px 100px;
+  text-align:center;position:relative;z-index:10;
+}
+.cta-section h2{
+  font-size:clamp(40px,12vw,60px);font-weight:800;
+  letter-spacing:-0.04em;line-height:1.0;margin-bottom:14px;
+  background:linear-gradient(135deg,#f0e6d0 0%,#ffffff 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.cta-section p{font-size:14px;color:rgba(255,255,255,0.35);margin-bottom:28px;line-height:1.6}
+.cta-row{display:flex;gap:8px;max-width:340px;margin:0 auto}
+.cta-em{
+  flex:1;background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:100px;padding:12px 18px;
+  color:#fff;font-family:'Inter',sans-serif;font-size:13px;
+  outline:none;transition:border-color 0.2s;
+}
+.cta-em:focus{border-color:rgba(255,255,255,0.28)}
+.cta-em::placeholder{color:rgba(255,255,255,0.25)}
+.cta-sb{
+  background:#fff;color:#000;border:none;
+  padding:12px 20px;border-radius:100px;
+  font-family:'Inter',sans-serif;font-size:13px;font-weight:700;
+  cursor:pointer;white-space:nowrap;transition:background 0.2s;
+}
+.cta-sb:hover{background:rgba(255,255,255,0.85)}
+
+/* ── FOOTER ── */
+footer{
+  border-top:1px solid rgba(255,255,255,0.06);
+  padding:28px 24px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:14px;position:relative;z-index:10;
+}
+.fbrand{font-size:14px;font-weight:800;color:rgba(255,255,255,0.35);letter-spacing:-0.03em}
+.flinks{display:flex;gap:18px;list-style:none}
+.flinks a{color:rgba(255,255,255,0.25);font-size:12px;text-decoration:none;transition:color 0.2s}
+.flinks a:hover{color:rgba(255,255,255,0.65)}
+.fcopy{font-size:11px;color:rgba(255,255,255,0.18);width:100%}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Trae™</a>
+  <div class="nav-right">
+    <a href="#faq" class="nav-link">FAQ</a>
+    <a href="#pricing" class="nav-link">定价</a>
+    <a href="#waitlist" class="nav-btn">加入等候列表</a>
+  </div>
+</nav>
+
+<!-- ══ 扁平 ICON 固定在屏幕中间，最底层 ══ -->
+<div class="icon-sticky" id="iconSticky">
+  <div class="icon-3d" id="icon3d">
+    <span class="icon-text">TRAE</span>
+  </div>
+  <div class="icon-shadow"></div>
+</div>
+
+<!-- ══ 可滚动内容 ══ -->
+<div class="scroll-content">
+
+  <!-- HERO -->
+  <div class="hero">
+    <h1 class="hero-title">你的 AI<br><span class="title-white">开发工具包</span></h1>
+    <p class="hero-sub">多智能体并行协作，从 <strong>设计器</strong> 到 <strong>自定义代码</strong> 全流程覆盖。</p>
+
+    <!-- 文字叠层：透明浮在图标前面 -->
+    <div class="feats-layer">
+
+      <div class="feat feat-top-right">
+        <div class="feat-title">完整智能体<br><span class="title-white">控制权</span></div>
+        <div class="feat-desc">集成 <strong>MCP 协议</strong>，多智能体模式让你同时在多个实例并行工作。</div>
+      </div>
+
+      <div class="feat feat-mid-left">
+        <div class="feat-title">内嵌<br><span class="title-white">知识库</span></div>
+        <div class="feat-desc">从 GSAP 动画、自定义组件到页面转场与 <strong>WebGL</strong>，全部内置。</div>
+      </div>
+
+      <div class="feat feat-bottom-right">
+        <div class="feat-title">部署<br><span class="title-white">流水线</span></div>
+        <div class="feat-desc">一键部署，持续集成，即时回滚，<strong>CDN</strong> 全球加速分发。</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ALL IN ONE -->
+  <div class="content-section" id="features">
+    <div class="big-text">一站式<br><span class="title-white">应用。</span></div>
+    <p class="section-body">AI 智能体在你项目里的瑞士军刀，从开发到上线一条龙。</p>
+
+    <!-- 视频模块卡片 -->
+    <div class="waitlist-card" style="margin-bottom: 40px; padding: 3px 3px 3px 3px;">
+      <!-- Win dots容器 -->
+      <div style="margin-top: 0px; margin-left: 0px;">
+        <div class="win-dots" style="margin-bottom: 0;">
+          <div class="wd"></div><div class="wd"></div><div class="wd"></div>
+        </div>
+      </div>
+      
+      <!-- 视频播放器 -->
+      <div style="margin-top: 2px;">
+        <div style="
+          width: 100%;
+          aspect-ratio: 16/9;
+          background: #000;
+          border-radius: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          overflow: hidden;
+        ">
+          <!-- 播放按钮 -->
+          <button style="
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+            border: none;
+            padding: 0;
+          " aria-label="播放视频" onmouseover="this.style.transform='scale(1.1)'; this.style.background='rgba(255, 255, 255, 0.25)';" onmouseout="this.style.transform='scale(1)'; this.style.background='rgba(255, 255, 255, 0.15)';">
+            <div style="
+              width: 0;
+              height: 0;
+              border-top: 12px solid transparent;
+              border-bottom: 12px solid transparent;
+              border-left: 20px solid rgba(255, 255, 255, 0.9);
+              margin-left: 4px;
+            "></div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="chips">
+      <div class="chip">
+        <div class="chip-ic">🧠</div>
+        <div class="chip-text">
+          <h4>上下文感知</h4>
+          <p>连接 MCP，赋予智能体对整个项目的完整理解，不再重复解释。</p>
+        </div>
+      </div>
+      <div class="chip">
+        <div class="chip-ic">⚡</div>
+        <div class="chip-text">
+          <h4>智能体集群</h4>
+          <p>并行运行多个 AI 智能体，同时处理代码、动画、功能模块。</p>
+        </div>
+      </div>
+      <div class="chip">
+        <div class="chip-ic">🔄</div>
+        <div class="chip-text">
+          <h4>热重载开发</h4>
+          <p>基于 Bun 的极速开发环境，实时同步，热模块替换。</p>
+        </div>
+      </div>
+      <div class="chip">
+        <div class="chip-ic">🚀</div>
+        <div class="chip-text">
+          <h4>一键部署</h4>
+          <p>点击即上线，线上与本地预览完全隔离，快速回滚随时可用。</p>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- WAITLIST CARD -->
+    <div class="waitlist-card" id="waitlist">
+      <div class="win-dots">
+        <div class="wd"></div><div class="wd"></div><div class="wd"></div>
+      </div>
+      <div class="card-icon">
+        <span class="card-icon-text">TRAE</span>
+      </div>
+      <div class="card-name">Trae<sup>™</sup></div>
+      <div class="card-beta">Beta 发布 · 2026 年 5 月</div>
+      <div class="card-h">获取早期访问</div>
+      <div class="card-p">一站式 AI 开发工作台<br>代码生成 · MCP · 部署全覆盖</div>
+    </div>
+  </div>
+
+  <!-- PRICING -->
+  <div class="pricing-section" id="pricing">
+    <div class="eyebrow">定价</div>
+    <h2 class="sec-h">选择你的<br><span class="title-white">计划</span></h2>
+    <div class="plans">
+      <div class="plan">
+        <div class="plan-top">
+          <div>
+            <div class="plan-name">Beta</div>
+            <div class="plan-price">免费<small> / 1个月</small></div>
+          </div>
+        </div>
+        <ul class="perks">
+          <li>测试名额 <span>40 人</span></li>
+          <li>全部快速模型</li>
+          <li>无限项目</li>
+        </ul>
+        <button class="pact ol">申请 Beta →</button>
+      </div>
+      <div class="plan hot">
+        <div class="plan-top">
+          <div>
+            <div class="plan-name">创始人</div>
+            <div class="plan-price">¥1,980<small> / 首年</small></div>
+          </div>
+          <div class="ptag">5折 · 永久锁价</div>
+        </div>
+        <ul class="perks">
+          <li>名额 <span>仅限 200 个</span></li>
+          <li>无限积分</li>
+          <li>全部 AI 模型</li>
+          <li>完整推理深度</li>
+          <li>专属 Discord 频道</li>
+        </ul>
+        <button class="pact sl">立即获取创始人资格</button>
+      </div>
+      <div class="plan">
+        <div class="plan-top">
+          <div>
+            <div class="plan-name">基础版</div>
+            <div class="plan-price">¥99<small> / 月</small></div>
+          </div>
+        </div>
+        <ul class="perks">
+          <li>12,000 积分/月</li>
+          <li>最多 10 个项目</li>
+          <li>CDN 部署</li>
+        </ul>
+        <button class="pact ol">即将开放</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq-section" id="faq">
+    <div class="eyebrow">常见问题</div>
+    <h2 class="sec-h">你可能<br><span class="title-white">想问的</span></h2>
+    <div class="faq-list">
+      <details class="fi" open>
+        <summary class="fq">
+          <div class="fq-left"><div class="fav">A</div><div class="fql">会影响网站性能吗？</div></div>
+          <span class="farr">+</span>
+        </summary>
+        <div class="fans"><p>和所有自定义代码一样，开销仅来自代码本身。所有产物经过 <strong>打包、压缩、混淆</strong>，不加载额外外部库，性能影响降到最低。</p></div>
+      </details>
+      <details class="fi">
+        <summary class="fq">
+          <div class="fq-left"><div class="fav">M</div><div class="fql">文件托管在哪里？</div></div>
+          <span class="farr">+</span>
+        </summary>
+        <div class="fans"><p>构建完成后上传至 <strong>Cloudflare R2</strong>，通过专属 CDN 域名提供服务，确保全球访问速度。</p></div>
+      </details>
+      <details class="fi">
+        <summary class="fq">
+          <div class="fq-left"><div class="fav">R</div><div class="fql">推错文件了怎么办？</div></div>
+          <span class="farr">+</span>
+        </summary>
+        <div class="fans"><p>部署面板中有 <strong>即时回滚</strong> 选项，点击后上一版本立即生效，本地修复后再重新推送。</p></div>
+      </details>
+      <details class="fi">
+        <summary class="fq">
+          <div class="fq-left"><div class="fav">S</div><div class="fql">支持哪些 AI 模型？</div></div>
+          <span class="farr">+</span>
+        </summary>
+        <div class="fans"><p>集成 <strong>OpenAI、Claude、Gemini</strong> 等主流模型，系统自动编排，也可手动切换。</p></div>
+      </details>
+    </div>
+  </div>
+
+  <!-- CTA BOTTOM -->
+  <div class="cta-section">
+    <h2>连接。<br><span class="title-white">提问。</span><span class="title-white">上线。</span></h2>
+    <p>从下载到运行，12 步完成全套配置。</p>
+    <div class="cta-row">
+      <label style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">邮箱地址</label>
+      <input class="cta-em" type="email" id="cta-email" placeholder="你的邮箱地址" autocomplete="email">
+      <button class="cta-sb" onclick="handleCta(this)">加入</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="fbrand">Trae™</div>
+    <ul class="flinks">
+      <li><a href="#">文档</a></li>
+      <li><a href="#">隐私</a></li>
+      <li><a href="#">Twitter</a></li>
+    </ul>
+    <div class="fcopy">© 2026 — 保留所有权利</div>
+  </footer>
+
+</div><!-- end scroll-content -->
+
+<script>
+// ── FAQ 展开 ──
+document.querySelectorAll('.fi summary').forEach(summary => {
+  summary.addEventListener('click', (e) => {
+    const details = summary.parentElement;
+    const allDetails = document.querySelectorAll('.fi');
+    allDetails.forEach(d => {
+      if (d !== details) {
+        d.removeAttribute('open');
+      }
+    });
+  });
+});
+
+// ── Waitlist 提交 ──
+function doJoin(){
+  document.getElementById('wl-form').style.display='none';
+  document.getElementById('wl-ok').style.display='block';
+}
+
+// ── CTA 提交 ──
+function handleCta(btn){
+  const em=document.getElementById('cta-email');
+  if(!em.value||!em.value.includes('@')){
+    em.style.borderColor='rgba(239,68,68,0.5)';
+    setTimeout(()=>em.style.borderColor='',1500);return;
+  }
+  btn.textContent='✓';btn.style.background='#4ade80';btn.style.color='#000';
+  em.disabled=true;btn.disabled=true;
+}
+
+// ── 图标：跟随滚动做轻微位移 + 随机漂移 + 鼠标跟随 ──
+const icon = document.getElementById('iconSticky');
+const icon3d = document.getElementById('icon3d');
+
+// 随机目标偏移
+let targetX = 0, targetY = 0;
+let currentX = 0, currentY = 0;
+let randomTargetX = 0, randomTargetY = 0;
+let scrollY = 0;
+
+// 鼠标和触摸位置
+let mouseX = 0, mouseY = 0;
+let mouseRatioX = 0, mouseRatioY = 0;
+
+// 每隔一段时间设置新的随机漂移目标
+function newRandomTarget(){
+  randomTargetX = (Math.random() - 0.5) * 40;  // ±20px
+  randomTargetY = (Math.random() - 0.5) * 30;  // ±15px
+}
+newRandomTarget();
+setInterval(newRandomTarget, 2800);
+
+// 监听滚动
+window.addEventListener('scroll',()=>{
+  scrollY = window.scrollY;
+}, {passive:true});
+
+// 监听鼠标移动
+window.addEventListener('mousemove',(e)=>{
+  // 计算鼠标在屏幕上的相对位置 (-1 到 1)
+  mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+  mouseY = (e.clientY / window.innerHeight) * 2 - 1;
+  
+  // 平滑过渡
+  mouseRatioX += (mouseX - mouseRatioX) * 0.1;
+  mouseRatioY += (mouseY - mouseRatioY) * 0.1;
+}, {passive:true});
+
+// 监听触摸开始
+window.addEventListener('touchstart',(e)=>{
+  if(e.touches.length > 0){
+    const touch = e.touches[0];
+    // 计算触摸在屏幕上的相对位置 (-1 到 1)
+    mouseX = (touch.clientX / window.innerWidth) * 2 - 1;
+    mouseY = (touch.clientY / window.innerHeight) * 2 - 1;
+    
+    // 平滑过渡
+    mouseRatioX += (mouseX - mouseRatioX) * 0.1;
+    mouseRatioY += (mouseY - mouseRatioY) * 0.1;
+  }
+}, {passive:true});
+
+// 监听触摸移动
+window.addEventListener('touchmove',(e)=>{
+  if(e.touches.length > 0){
+    const touch = e.touches[0];
+    // 计算触摸在屏幕上的相对位置 (-1 到 1)
+    mouseX = (touch.clientX / window.innerWidth) * 2 - 1;
+    mouseY = (touch.clientY / window.innerHeight) * 2 - 1;
+    
+    // 平滑过渡
+    mouseRatioX += (mouseX - mouseRatioX) * 0.2; // 增加响应速度
+    mouseRatioY += (mouseY - mouseRatioY) * 0.2; // 增加响应速度
+  }
+}, {passive:true});
+
+// 动画循环：平滑插值
+let animFrame;
+function animate(){
+  // 滚动带来的轻微视差（比内容滚得慢，所以有悬浮感）
+  // icon 固定在 fixed position，本身不随滚动，但加一点位移感
+  const scrollRatio = scrollY * 0.0005; // 很小的系数
+
+  // 插值到随机目标
+  currentX += (randomTargetX - currentX) * 0.008;
+  currentY += (randomTargetY - currentY) * 0.008;
+
+  // 扁平效果：只有位移和轻微缩放
+  const moveX = scrollRatio * 15 + mouseRatioX * 30;
+  const moveY = -scrollRatio * 8 - mouseRatioY * 30;
+  const scale = 1 + (mouseRatioX * 0.05);
+
+  icon.style.transform = `translate(calc(-50% + ${currentX + moveX}px), calc(-50% + ${currentY + moveY}px))`;
+  icon3d.style.transform = `scale(${scale})`;
+
+  animFrame = requestAnimationFrame(animate);
+}
+animate();
+
+// ── 进场动画 ──
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.style.opacity='1';
+      e.target.style.transform='translate(0, 0)';
+    }
+  });
+},{threshold:0.08});
+
+document.querySelectorAll('.chip,.plan,.fi,.waitlist-card').forEach(el=>{
+  el.style.opacity='0';
+  el.style.transform='translate(30px, 30px)';
+  el.style.transition='opacity 0.675s ease,transform 0.675s ease';
+  io.observe(el);
+});
+</script>
+</body>
+</html>
